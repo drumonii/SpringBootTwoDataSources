@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    primary:
+      initialize: false
+      url: jdbc:h2:mem:primary
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+    secondary:
+      initialize: false
+      url: jdbc:h2:mem:secondary
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: true
+        format_sql: true
+        generate_statistics: false
+        id.new_generator_mappings: true
+        order_updates: true
+        default_batch_fetch_size: 4
+        max_fetch_depth: 2
