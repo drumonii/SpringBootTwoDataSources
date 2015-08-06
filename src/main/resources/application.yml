@@ -23,3 +23,9 @@ spring:
         order_updates: true
         default_batch_fetch_size: 4
         max_fetch_depth: 2
+flyway:
+  enabled: false
+  primary: 
+    location: classpath:db/migration/primary
+  secondary:
+    location: classpath:db/migration/secondary

@@ -28,6 +28,9 @@ dependencies {
 
     // H2
     compile 'com.h2database:h2'
+    
+    // Flyway
+    compile 'org.flywaydb:flyway-core'
 }
 
 task wrapper(type: Wrapper) {
