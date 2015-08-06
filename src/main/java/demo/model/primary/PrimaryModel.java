@@ -9,7 +9,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "PRIMARY_MODEL")
 public class PrimaryModel {
 	
 	@Id
