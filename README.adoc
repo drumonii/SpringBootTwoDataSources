@@ -6,7 +6,7 @@ It utilizes:
 
 * Spring Data JPA
 * `@Service` layer with `@PersistenceContext` and JPQL
-* Flyway migrations for the separate `DataSource` s
+* Flyway migrations for the two `DataSource` s
 * Application properties with YAML
 * Thymeleaf
 * Unit tests for components
