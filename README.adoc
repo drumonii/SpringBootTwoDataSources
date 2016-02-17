@@ -7,9 +7,7 @@ It utilizes:
 * Spring Data JPA
 * `@Service` layer with `@PersistenceContext` and JPQL
 * Flyway migrations for the two `DataSource` s
+* Separate Hibernate properties for each `DataSource`
 * Application properties with YAML
 * Thymeleaf
 * Unit tests for components
-
-== TODO
-* Separate Hibernate properties for each `DataSource`

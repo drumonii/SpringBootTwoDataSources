@@ -1,31 +1,44 @@
-spring:
+primary:
   datasource:
-    primary:
-      initialize: false
-      url: jdbc:h2:mem:primary
-      username: sa
-      password:
-      driver-class-name: org.h2.Driver
-    secondary:
-      initialize: false
-      url: jdbc:h2:mem:secondary
-      username: sa
-      password:
-      driver-class-name: org.h2.Driver
+    initialize: false
+    url: jdbc:h2:mem:primary
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  flyway:
+    location: classpath:db/migration/primary
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         show_sql: true
         format_sql: true
+        generate_statistics: true
+        id.new_generator_mappings: true
+        order_updates: true
+        default_batch_fetch_size: 4
+        max_fetch_depth: 2
+        hbm2ddl.auto:
+secondary:
+  datasource:
+    initialize: false
+    url: jdbc:h2:mem:secondary
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  flyway:
+    location: classpath:db/migration/secondary
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: false
+        format_sql: false
         generate_statistics: false
         id.new_generator_mappings: true
         order_updates: true
         default_batch_fetch_size: 4
         max_fetch_depth: 2
+        hbm2ddl.auto:
 flyway:
-  enabled: false
-  primary: 
-    location: classpath:db/migration/primary
-  secondary:
-    location: classpath:db/migration/secondary
+  enabled: false # to keep boot from migrating

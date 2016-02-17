@@ -10,36 +10,36 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import demo.properties.FlywayPrimaryProperties;
+import demo.properties.FlywaySecondaryProperties;
+
 @Configuration
 public class FlywayConfig {
 
 	@Autowired
-	@Qualifier(PrimaryDataSourceConfig.PREFIX_PRIMARY)
+	@Qualifier(PrimaryDataSourceConfig.PRIMARY_DATASOURCE)
 	private DataSource primaryDataSource;
 	
 	@Autowired
-	@Qualifier(SecondaryDataSourceConfig.PREFIX_SECONDARY)
+	@Qualifier(SecondaryDataSourceConfig.SECONDARY_DATASOURCE)
 	private DataSource secondaryDataSource;
-	
-	@Autowired
-	private FlywayConfiguration flywayConfiguration;
 
 	@Bean(initMethod = "migrate")
 	@FlywayDataSource
 	@Primary
-	public Flyway primaryFlyway() {
+	public Flyway primaryFlyway(FlywayPrimaryProperties properties) {
 		Flyway flyway = new Flyway();
 		flyway.setDataSource(primaryDataSource);
-		flyway.setLocations(flywayConfiguration.getPrimary().getLocation());
+		flyway.setLocations(properties.getLocation());
 		return flyway;
 	}
 	
 	@Bean(initMethod = "migrate")
 	@FlywayDataSource
-	public Flyway secondaryFlyway() {
+	public Flyway secondaryFlyway(FlywaySecondaryProperties properties) {
 		Flyway flyway = new Flyway();
 		flyway.setDataSource(secondaryDataSource);
-		flyway.setLocations(flywayConfiguration.getSecondary().getLocation());
+		flyway.setLocations(properties.getLocation());
 		return flyway;
 	}
 
