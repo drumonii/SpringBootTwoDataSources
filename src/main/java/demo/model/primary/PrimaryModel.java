@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name = "PRIMARY_MODEL")
 public class PrimaryModel {
@@ -18,6 +20,7 @@ public class PrimaryModel {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRIMARY_MODEL_ID")
 	private int id;
 	
+	@NotEmpty
 	@Column(name = "name", nullable = false)
 	private String name;
 	
