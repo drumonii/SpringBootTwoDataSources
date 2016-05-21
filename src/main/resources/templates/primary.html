@@ -12,11 +12,11 @@
 <div layout:fragment="content">
     <h3 th:text="#{primary.new}"></h3>
     <form th:action="@{/primary}" th:object="${primaryModel}" method="post">
-        <ul>
-            <li th:each="err : ${#fields.errors('*{name}')}" th:text="${err}" />
-        </ul>
-        <label th:text="#{primaryModel.name}">Name</label> 
-        <input type="text" th:field="*{name}" />
+        <label th:class="${#fields.hasErrors('*{name}')} ? 'is-invalid-label' : ''">
+			<span th:text="#{primaryModel.name}">Name</span>
+			<input type="text" th:field="*{name}" th:class="${#fields.hasErrors('*{name}')} ? 'is-invalid-input' : ''" />
+			<span th:if="${#fields.hasErrors('*{name}')}" class="form-error is-visible" th:errors="*{name}">This field is required</span>
+        </label>
         <button type="submit" class="button" th:text="#{primary.save}">Save</button>
     </form>
     <hr/>
