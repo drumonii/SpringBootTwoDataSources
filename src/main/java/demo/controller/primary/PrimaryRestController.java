@@ -23,7 +23,7 @@ public class PrimaryRestController {
 	
 	@RequestMapping(value = "/repo", method = RequestMethod.GET)
 	public List<PrimaryModel> getPrimaryFromRepository() {
-		return (List<PrimaryModel>) primaryRepository.findAll();
+		return primaryRepository.findAll();
 	}
 	
 	@RequestMapping(value = "/service", method = RequestMethod.GET)

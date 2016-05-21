@@ -1,9 +1,9 @@
 package demo.repository.secondary;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import demo.model.secondary.SecondaryModel;
 
-public interface SecondaryRepository extends CrudRepository<SecondaryModel, Integer> {
+public interface SecondaryRepository extends JpaRepository<SecondaryModel, Integer> {
 
 }
