@@ -6,7 +6,7 @@ apply plugin: 'spring-boot'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-version = '2.2-SNAPSHOT'
+version = '2.2'
 
 buildscript {
     repositories {
@@ -59,4 +59,8 @@ dependencies {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.13'
+}
+
+task stage {
+    dependsOn build
 }
