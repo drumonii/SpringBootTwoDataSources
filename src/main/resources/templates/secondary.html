@@ -4,15 +4,6 @@
 	<title>Query from the Secondary DataSource</title>
 </head>
 <body>
-	<h1>Query from the Secondary DataSource</h1>
-	<h2>Via:</h2>
-	<h3>
-		<a th:href="@{/secondary/repo}">Spring Data JPA Repository</a>
-	</h3>
-	<h3>
-		<a th:href="@{/secondary/service}">Service Layer with JPA
-			EntityManager</a>
-	</h3>
 	<form th:action="@{/secondary}" th:object="${secondaryModel}" method="post">
 		<ul>
 			<li th:each="err : ${#fields.errors('*{name}')}" th:text="${err}" />

@@ -4,8 +4,7 @@ This project demonstrates how to use two `DataSource` s with Spring Boot.
 
 It utilizes: 
 
-* Spring Data JPA
-* `@Service` layer with `@PersistenceContext` and JPQL
+* Spring Data JPA/REST
 * Flyway migrations for the two `DataSource` s
 * Separate Hibernate properties for each `DataSource`
 * Application properties with YAML

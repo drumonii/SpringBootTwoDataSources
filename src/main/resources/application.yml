@@ -1,3 +1,8 @@
+spring:
+  # Data REST base URI
+  data.rest.base-path: /api
+
+# Primary datasource properties
 primary:
   datasource:
     initialize: false
@@ -19,6 +24,8 @@ primary:
         default_batch_fetch_size: 4
         max_fetch_depth: 2
         hbm2ddl.auto:
+
+# Secondary datasource properties
 secondary:
   datasource:
     initialize: false
