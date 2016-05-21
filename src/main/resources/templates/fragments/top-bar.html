@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div class="top-bar" th:fragment="top-bar">
+	<div class="row">
+		<div class="top-bar-left">
+			<ul class="menu">
+				<li>
+					<a class="menu-text" th:href="@{/}" th:text="#{main.title}">Spring Boot Two DataSources Demo</a>
+				</li>
+				<li class="menuitem" th:classappend="${activeTab == 'primary' ? 'active' : ''}">
+					<a th:href="@{/primary}" th:text="#{topBar.primary}">Primary DataSource</a>
+				</li>
+				<li class="menuitem" th:classappend="${activeTab == 'secondary' ? 'active' : ''}">
+					<a th:href="@{/secondary}" th:text="#{topBar.secondary}">Secondary DataSource</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>

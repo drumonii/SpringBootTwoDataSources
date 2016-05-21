@@ -1,5 +1,6 @@
 package demo.controller.primary;
 
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -18,6 +19,7 @@ public class PrimaryControllerTest extends BaseSpringTestRunner {
 		mockMvc.perform(get("/primary"))
 				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("primaryModel"))
+				.andExpect(model().attribute("activeTab", is("primary")))
 				.andExpect(view().name("primary"));
 	}
 	

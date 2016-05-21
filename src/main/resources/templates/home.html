@@ -6,13 +6,18 @@
 </head>
 <body>
 <div layout:fragment="content">
-	<h2 th:text="#{home}">Spring Boot with Two Data Sources</h2>
-	<h3>
-		<a th:href="@{/primary}" th:text="#{home.primary}">Primary DataSource</a>
-	</h3>
-	<h3>
-		<a th:href="@{/secondary}" th:text="#{home.secondary}">Secondary DataSource</a>
-	</h3>
+	<h3 th:text="#{home}"></h3>
+	<p><span th:text="#{home.demo}">This project demonstrates how to use two DataSources with Spring Boot </span><span th:text="${sbVersion}"></span>.</p>
+	<p th:text="#{home.utilizes}">It utilizes:</p>
+	<ul>
+		<li>Spring Data JPA/REST</li>
+		<li>Flyway migrations for the two DataSources</li>
+		<li>Separate Hibernate properties for each DataSource</li>
+		<li>Application properties with YAML</li>
+		<li>Thymeleaf</li>
+		<li>Unit tests for components</li>
+	</ul>
+	<a href="https://github.com/drumonii/SpringBootTwoDataSources" th:text="#{home.source}">Source Code</a>
 </div>
 </body>
 </html>

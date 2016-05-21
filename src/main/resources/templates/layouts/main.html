@@ -11,9 +11,15 @@
 	<script th:src="@{/webjars/foundation-sites/dist/foundation.min.js}"></script>
 </head>
 <body>
+	<!--/* top bar */-->
+	<div th:replace="fragments/top-bar :: top-bar"></div>
+	<!--/* main content */-->
 	<div class="row">
 		<div class="large-12 columns" layout:fragment="content"></div>
 	</div>
+	<hr/>
+	<!--/* footer */-->
+	<div th:replace="fragments/footer :: footer"></div>
 	<script>
 		$(document).foundation();
 	</script>

@@ -22,6 +22,7 @@ public class SecondaryController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String getSecondary(Model model) {
 		model.addAttribute(new SecondaryModel());
+		model.addAttribute("activeTab", "secondary");
 		return "secondary";
 	}
 	

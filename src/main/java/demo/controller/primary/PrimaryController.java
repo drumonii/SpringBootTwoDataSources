@@ -22,6 +22,7 @@ public class PrimaryController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String getPrimary(Model model) {
 		model.addAttribute(new PrimaryModel());
+		model.addAttribute("activeTab", "primary");
 		return "primary";
 	}
 	
