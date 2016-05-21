@@ -1,0 +1,14 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title layout:title-pattern="$DECORATOR_TITLE | $CONTENT_TITLE" th:text="#{main.title}">Spring Boot Two DataSources Demo</title>
+	<script th:src="@{/webjars/jquery/dist/jquery.min.js}"></script>
+</head>
+<body>
+	<div layout:fragment="content"></div>
+</body>
+</html>

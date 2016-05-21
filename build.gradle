@@ -39,6 +39,16 @@ dependencies {
     // Flyway
     compile 'org.flywaydb:flyway-core'
 
+    // WebJars Locator
+    compile 'org.webjars:webjars-locator'
+
+    // jQuery
+    compile 'org.webjars.bower:jquery:2.2.3'
+
+    // DataTables
+    compile 'org.webjars.bower:datatables.net:1.10.12'
+    compile 'org.webjars.bower:datatables.net-dt:1.10.12'
+
     // Testing
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.assertj:assertj-core:3.4.1'

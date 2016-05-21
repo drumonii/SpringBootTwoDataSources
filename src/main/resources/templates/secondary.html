@@ -1,15 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main">
 <head>
-	<title>Query from the Secondary DataSource</title>
+    <title th:text="#{secondary.title}">Query from the Secondary DataSource</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables.net-dt/css/jquery.dataTables.min.css}" />
+    <script th:src="@{/webjars/datatables.net/js/jquery.dataTables.min.js}"></script>
 </head>
 <body>
-	<form th:action="@{/secondary}" th:object="${secondaryModel}" method="post">
-		<ul>
-			<li th:each="err : ${#fields.errors('*{name}')}" th:text="${err}" />
-		</ul>
-		<label>Name</label> <input type="text" th:field="*{name}" />
-		<button type="submit">Save</button>
-	</form>
+<div layout:fragment="content">
+    <h3 th:text="#{secondary.new}"></h3>
+    <form th:action="@{/secondary}" th:object="${secondaryModel}" method="post">
+        <ul>
+            <li th:each="err : ${#fields.errors('*{name}')}" th:text="${err}" />
+        </ul>
+        <label th:text="#{secondaryModel.name}">Name</label> 
+        <input type="text" th:field="*{name}" />
+        <button type="submit" th:text="#{secondary.save}">Save</button>
+    </form>
+    <h3 th:text="#{secondary.table}"></h3>
+    <table id="secondary-datatable">
+        <thead>
+        <tr>
+            <th th:text="#{secondaryModel.name}">Name</th>
+        </tr>
+        </thead>
+    </table>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(function() {
+            $('#secondary-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: false,
+                ajax: function(data, callback, settings) {
+                    var sorts = [];
+                    $.each(data.order, function (i, order) {
+                        if (data.columns[order.column].orderable) {
+                            sorts.push(data.columns[order.column].data + ',' + order.dir);
+                        }
+                    });
+                    var parameters = {};
+                    parameters['page'] = Math.ceil(data.start / data.length);
+                    parameters['size'] = data.length;
+                    parameters['sort'] = sorts;
+                    $.ajax({
+                        url: [[@{/api/secondary}]],
+                    data: $.param(parameters, true),
+                            success: function(json) {
+                        callback({ draw: data.draw, recordsTotal: json.page.totalElements,
+                            recordsFiltered: json.page.totalElements, data: json._embedded.data
+                        });
+                    }
+                });
+                },
+                columns: [
+                    { data: 'name' }
+                ],
+                language: {
+                    emptyTable: [[#{dataTables.emptyTable}]],
+                    info: [[#{dataTables.info}]],
+                    infoEmpty: [[#{dataTables.infoEmpty}]],
+                    infoFiltered: [[#{dataTables.infoFiltered}]],
+                    processing: [[#{dataTables.processing}]],
+                    search: [[#{dataTables.search}]],
+                    zeroRecords: [[#{dataTables.zeroRecords}]],
+                    paginate: {
+                        next: [[#{dataTables.paginate.next}]],
+                        previous: [[#{dataTables.paginate.previous}]]
+                    }
+                }
+            });
+        });
+        /*]]>*/
+    </script>
+</div>
 </body>
 </html>

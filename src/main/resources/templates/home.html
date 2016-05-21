@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main">
 <head>
-	<title>Spring Boot with Two Data Sources</title>
 </head>
 <body>
-	<h1>Spring Boot with Two Data Sources</h1>
+<div layout:fragment="content">
+	<h2 th:text="#{home}">Spring Boot with Two Data Sources</h2>
 	<h3>
-		<a th:href="@{/primary}">Primary DataSource</a>
+		<a th:href="@{/primary}" th:text="#{home.primary}">Primary DataSource</a>
 	</h3>
 	<h3>
-		<a th:href="@{/secondary}">Secondary DataSource</a>
+		<a th:href="@{/secondary}" th:text="#{home.secondary}">Secondary DataSource</a>
 	</h3>
+</div>
 </body>
 </html>
