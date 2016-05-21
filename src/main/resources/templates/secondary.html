@@ -4,8 +4,9 @@
       layout:decorator="layouts/main">
 <head>
     <title th:text="#{secondary.title}">Query from the Secondary DataSource</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables.net-dt/css/jquery.dataTables.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables.net-zf/css/dataTables.foundation.min.css}" />
     <script th:src="@{/webjars/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/webjars/datatables.net-zf/js/dataTables.foundation.min.js}"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -16,8 +17,9 @@
         </ul>
         <label th:text="#{secondaryModel.name}">Name</label> 
         <input type="text" th:field="*{name}" />
-        <button type="submit" th:text="#{secondary.save}">Save</button>
+        <button type="submit" class="button" th:text="#{secondary.save}">Save</button>
     </form>
+    <hr/>
     <h3 th:text="#{secondary.table}"></h3>
     <table id="secondary-datatable">
         <thead>

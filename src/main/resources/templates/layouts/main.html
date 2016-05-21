@@ -6,9 +6,16 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title layout:title-pattern="$DECORATOR_TITLE | $CONTENT_TITLE" th:text="#{main.title}">Spring Boot Two DataSources Demo</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/foundation-sites/dist/foundation.min.css}" />
 	<script th:src="@{/webjars/jquery/dist/jquery.min.js}"></script>
+	<script th:src="@{/webjars/foundation-sites/dist/foundation.min.js}"></script>
 </head>
 <body>
-	<div layout:fragment="content"></div>
+	<div class="row">
+		<div class="large-12 columns" layout:fragment="content"></div>
+	</div>
+	<script>
+		$(document).foundation();
+	</script>
 </body>
 </html>

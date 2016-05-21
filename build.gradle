@@ -45,9 +45,12 @@ dependencies {
     // jQuery
     compile 'org.webjars.bower:jquery:2.2.3'
 
+    // Foundation
+    compile 'org.webjars.bower:foundation-sites:6.2.1'
+
     // DataTables
     compile 'org.webjars.bower:datatables.net:1.10.12'
-    compile 'org.webjars.bower:datatables.net-dt:1.10.12'
+    compile 'org.webjars.bower:datatables.net-zf:1.10.12'
 
     // Testing
     testCompile 'org.springframework.boot:spring-boot-starter-test'
