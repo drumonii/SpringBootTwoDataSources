@@ -29,6 +29,7 @@ public class PrimaryControllerTest extends BaseSpringTestRunner {
 				.andExpect(status().isOk())
 				.andExpect(model().attributeHasErrors("primaryModel"))
 				.andExpect(model().attributeHasFieldErrors("primaryModel", "name"))
+				.andExpect(model().attribute("activeTab", is("primary")))
 				.andExpect(view().name("primary"));
 		mockMvc.perform(post("/primary").param("name", "Test"))
 				.andExpect(status().is3xxRedirection())
