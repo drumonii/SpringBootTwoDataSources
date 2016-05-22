@@ -10,6 +10,21 @@
 </head>
 <body>
 <div layout:fragment="content">
+    <h3 th:text="#{secondary.config}"></h3>
+    <table id="config-props-table">
+        <thead>
+        <tr>
+            <th>URL</th>
+            <th>Username</th>
+            <th>Driver</th>
+            <th>Dialect</th>
+            <th>Flyway</th>
+            <th>Show SQL</th>
+            <th>Statistics</th>
+        </tr>
+        </thead>
+    </table>
+    <hr/>
     <h3 th:text="#{secondary.new}"></h3>
     <form th:action="@{/secondary}" th:object="${secondaryModel}" method="post">
         <label th:class="${#fields.hasErrors('*{name}')} ? 'is-invalid-label' : ''">
@@ -31,6 +46,22 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         $(function() {
+            $.ajax({
+                url: [[@{/env}]],
+                success: function(data) {
+                    var config = data['applicationConfig: [classpath:/application.yml]'];
+                    $('#config-props-table').append(
+                            '<tr>' +
+                            '<td>'+ config['secondary.datasource.url'] +'</td>' +
+                            '<td>'+ config['secondary.datasource.username'] +'</td>' +
+                            '<td>'+ config['secondary.datasource.driver-class-name'] +'</td>' +
+                            '<td>'+ config['secondary.jpa.properties.hibernate.dialect'] +'</td>' +
+                            '<td>'+ config['secondary.flyway.location'] +'</td>' +
+                            '<td>'+ config['secondary.jpa.properties.hibernate.show_sql'] +'</td>' +
+                            '<td>'+ config['secondary.jpa.properties.hibernate.generate_statistics'] +'</td>' +
+                            '</tr>');
+                }
+            });
             $('#secondary-datatable').DataTable({
                 processing: true,
                 serverSide: true,
@@ -48,13 +79,13 @@
                     parameters['sort'] = sorts;
                     $.ajax({
                         url: [[@{/api/secondary}]],
-                    data: $.param(parameters, true),
-                            success: function(json) {
-                        callback({ draw: data.draw, recordsTotal: json.page.totalElements,
-                            recordsFiltered: json.page.totalElements, data: json._embedded.data
-                        });
-                    }
-                });
+                        data: $.param(parameters, true),
+                        success: function(json) {
+                            callback({ draw: data.draw, recordsTotal: json.page.totalElements,
+                                recordsFiltered: json.page.totalElements, data: json._embedded.data
+                            });
+                        }
+                    });
                 },
                 columns: [
                     { data: 'name' }
