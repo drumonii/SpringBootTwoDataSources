@@ -4,9 +4,9 @@ This project demonstrates how to use two `DataSource` s with Spring Boot.
 
 It utilizes: 
 
-* Spring Data JPA/REST
-* Flyway migrations for the two `DataSource` s
-* Separate Hibernate properties for each `DataSource`
-* Application properties with YAML
-* Thymeleaf
+* Spring Data https://github.com/spring-projects/spring-data-jpa[JPA] / https://github.com/spring-projects/spring-data-rest[REST]
+* https://github.com/flyway/flyway[Flyway] migrations for the two `DataSource` s
+* Separate Hibernate properties for each `DataSource` defined in the application.yml
+* https://github.com/thymeleaf/thymeleaf[Thymeleaf]
+* https://github.com/DataTables/DataTablesSrc[DataTables]
 * Unit tests for components
