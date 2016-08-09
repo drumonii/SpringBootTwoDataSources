@@ -6,20 +6,22 @@ apply plugin: 'spring-boot'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-version = '2.3'
+version = '2.4'
 
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.3.5.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
     }
 }
 
 bootRun {
     addResources = true
 }
+
+ext['assertj.version'] = '3.5.2'
 
 repositories {
     jcenter()
@@ -44,22 +46,25 @@ dependencies {
     compile 'org.webjars:webjars-locator'
 
     // jQuery
-    compile 'org.webjars.bower:jquery:2.2.3'
+    compile 'org.webjars.bower:jquery:2.2.4'
 
     // Foundation
-    compile 'org.webjars.bower:foundation-sites:6.2.1'
+    compile 'org.webjars.bower:foundation-sites:6.2.3'
 
     // DataTables
-    compile 'org.webjars.bower:datatables.net:1.10.12'
-    compile 'org.webjars.bower:datatables.net-zf:1.10.12'
+    compile ('org.webjars.bower:datatables.net:1.10.12') {
+        exclude group: 'org.webjars.bower'
+    }
+    compile ('org.webjars.bower:datatables.net-zf:1.10.12') {
+        exclude group: 'org.webjars.bower'
+    }
 
     // Testing
     testCompile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile 'org.assertj:assertj-core:3.4.1'
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
+    gradleVersion = '2.14.1'
 }
 
 task stage {

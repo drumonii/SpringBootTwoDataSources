@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "SECONDARY_ENTITY_MANAGER_FACTORY", transactionManagerRef = "SECONDARY_PLATFORM_TX_MANAGER", 
-		basePackages = { "demo.repository.secondary" })
+@EnableJpaRepositories(entityManagerFactoryRef = "SECONDARY_ENTITY_MANAGER_FACTORY",
+		transactionManagerRef = "SECONDARY_PLATFORM_TX_MANAGER", basePackages = { "demo.repository.secondary" })
 public class SecondaryDataSourceConfig {
 
 	public static final String SECONDARY_JPA_PROPS = "secondary.jpa";

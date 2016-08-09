@@ -20,8 +20,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "PRIMARY_ENTITY_MANAGER_FACTORY", transactionManagerRef = "PRIMARY_PLATFORM_TX_MANAGER", 
-		basePackages = { "demo.repository.primary" })
+@EnableJpaRepositories(entityManagerFactoryRef = "PRIMARY_ENTITY_MANAGER_FACTORY",
+		transactionManagerRef = "PRIMARY_PLATFORM_TX_MANAGER", basePackages = { "demo.repository.primary" })
 public class PrimaryDataSourceConfig {
 
 	public static final String PRIMARY_JPA_PROPS = "primary.jpa";
