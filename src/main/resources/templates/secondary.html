@@ -65,7 +65,6 @@
             $('#secondary-datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                searching: false,
                 ajax: function(data, callback, settings) {
                     var sorts = [];
                     $.each(data.order, function (i, order) {
@@ -74,6 +73,9 @@
                         }
                     });
                     var parameters = {};
+                    if (data.search.value) {
+                        parameters['name'] = data.search.value;
+                    }
                     parameters['page'] = Math.ceil(data.start / data.length);
                     parameters['size'] = data.length;
                     parameters['sort'] = sorts;
@@ -82,7 +84,8 @@
                         data: $.param(parameters, true),
                         success: function(json) {
                             callback({ draw: data.draw, recordsTotal: json.page.totalElements,
-                                recordsFiltered: json.page.totalElements, data: json._embedded.data
+                                recordsFiltered: json.page.totalElements,
+                                data: json._embedded === undefined ? {} : json._embedded.data
                             });
                         }
                     });

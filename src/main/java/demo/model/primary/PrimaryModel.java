@@ -18,21 +18,24 @@ public class PrimaryModel {
 	@Column(name = "ID", unique = true, nullable = false)
 	@SequenceGenerator(name = "PRIMARY_MODEL_ID", sequenceName = "PRIMARY_MODEL_SEQ_ID", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRIMARY_MODEL_ID")
-	private int id;
+	private Integer id;
 	
 	@NotEmpty
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
