@@ -3,6 +3,7 @@ package demo.controller;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class DemoController {
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public String getHome(Model model) {
 		model.addAttribute("sbVersion", SpringBootVersion.getVersion());
 		return "home";
