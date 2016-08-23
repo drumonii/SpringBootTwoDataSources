@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/main">
+      layout:decorate="~{layouts/main}">
 <head>
     <title th:text="#{secondary.title}">Query from the Secondary DataSource</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables.net-zf/css/dataTables.foundation.min.css}" />

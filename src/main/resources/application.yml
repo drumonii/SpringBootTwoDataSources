@@ -3,6 +3,8 @@ spring:
   data.rest.base-path: /api
   # Internalization
   messages.basename: i18n/messages
+  # Thymeleaf
+  thymeleaf.mode: HTML
 
 # Primary datasource properties
 primary:

@@ -10,10 +10,10 @@
 				<li>
 					<a class="menu-text" th:href="@{/}" th:text="#{main.title}">Spring Boot Two DataSources Demo</a>
 				</li>
-				<li class="menuitem" th:classappend="${activeTab == 'primary' ? 'active' : ''}">
+				<li class="menuitem" th:classappend="${activeTab == 'primary' ? 'active' : _}">
 					<a th:href="@{/primary}" th:text="#{topBar.primary}">Primary DataSource</a>
 				</li>
-				<li class="menuitem" th:classappend="${activeTab == 'secondary' ? 'active' : ''}">
+				<li class="menuitem" th:classappend="${activeTab == 'secondary' ? 'active' : _}">
 					<a th:href="@{/secondary}" th:text="#{topBar.secondary}">Secondary DataSource</a>
 				</li>
 			</ul>
