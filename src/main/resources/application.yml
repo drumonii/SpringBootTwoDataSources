@@ -5,6 +5,8 @@ spring:
   messages.basename: i18n/messages
   # Thymeleaf
   thymeleaf.mode: HTML
+  # Resource handling
+  resources.cache-period: 31556926
 
 # Primary datasource properties
 primary:
