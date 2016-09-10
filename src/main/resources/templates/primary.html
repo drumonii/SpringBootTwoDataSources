@@ -47,7 +47,7 @@
         /*<![CDATA[*/
         $(function() {
             $.ajax({
-                url: [[@{/env}]],
+                url: /*[[@{/env}]]*/ '/env',
                 success: function(data) {
                     var config = data['applicationConfig: [classpath:/application.yml]'];
                     $('#config-props-table').append(
@@ -80,7 +80,7 @@
                     parameters['size'] = data.length;
                     parameters['sort'] = sorts;
                     $.ajax({
-                        url: [[@{/api/primary}]],
+                        url: /*[[@{/api/primary}]]*/ '/api/primary',
                         data: $.param(parameters, true),
                         success: function(json) {
                             callback({ draw: data.draw, recordsTotal: json.page.totalElements,
@@ -94,16 +94,16 @@
                     { data: 'name' }
                 ],
                 language: {
-                    emptyTable: [[#{dataTables.emptyTable}]],
-                    info: [[#{dataTables.info}]],
-                    infoEmpty: [[#{dataTables.infoEmpty}]],
-                    infoFiltered: [[#{dataTables.infoFiltered}]],
-                    processing: [[#{dataTables.processing}]],
-                    search: [[#{dataTables.search}]],
-                    zeroRecords: [[#{dataTables.zeroRecords}]],
+                    emptyTable: /*[[#{dataTables.emptyTable}]]*/ 'dataTables.emptyTable',
+                    info: /*[[#{dataTables.info}]]*/ 'dataTables.info',
+                    infoEmpty: /*[[#{dataTables.infoEmpty}]]*/ 'dataTables.infoEmpty',
+                    infoFiltered: /*[[#{dataTables.infoFiltered}]]*/ 'dataTables.infoFiltered',
+                    processing: /*[[#{dataTables.processing}]]*/ 'dataTables.processing',
+                    search: /*[[#{dataTables.search}]]*/ 'dataTables.search',
+                    zeroRecords: /*[[#{dataTables.zeroRecords}]]*/ 'dataTables.zeroRecords',
                     paginate: {
-                        next: [[#{dataTables.paginate.next}]],
-                        previous: [[#{dataTables.paginate.previous}]]
+                        next: /*[[#{dataTables.paginate.next}]]*/ 'dataTables.paginate.nex',
+                        previous: /*[[#{dataTables.paginate.previous}]]*/ 'dataTables.paginate.previous'
                     }
                 }
             });
