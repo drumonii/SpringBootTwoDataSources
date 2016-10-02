@@ -13,7 +13,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE'
     }
 }
 
@@ -22,6 +22,7 @@ bootRun {
 }
 
 ext['assertj.version'] = '3.5.2'
+ext['spring-data-releasetrain.version'] = 'Hopper-SR4'
 ext['thymeleaf.version'] = '3.0.1.RELEASE'
 ext['thymeleaf-layout-dialect.version'] = '2.0.1'
 
