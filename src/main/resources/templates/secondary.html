@@ -25,6 +25,9 @@
         </thead>
     </table>
     <hr/>
+    <div class="success callout" th:if="${success}">
+        <p th:text="#{secondary.save.success(${success})}"></p>
+    </div>
     <h3 th:text="#{secondary.new}"></h3>
     <form th:action="@{/secondary}" th:object="${secondaryModel}" method="post">
         <label th:class="${#fields.hasErrors('*{name}')} ? 'is-invalid-label' : ''">

@@ -3,10 +3,7 @@ package demo.controller.primary;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.Test;
 
@@ -33,6 +30,7 @@ public class PrimaryControllerTest extends BaseSpringTestRunner {
 				.andExpect(view().name("primary"));
 		mockMvc.perform(post("/primary").param("name", "Test"))
 				.andExpect(status().is3xxRedirection())
+				.andExpect(flash().attribute("success", is("Test")))
 				.andExpect(redirectedUrl("/primary"));
 	}
 
