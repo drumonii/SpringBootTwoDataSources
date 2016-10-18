@@ -10,3 +10,5 @@ It utilizes:
 * https://github.com/thymeleaf/thymeleaf[Thymeleaf] 3
 * https://github.com/DataTables/DataTablesSrc[DataTables]
 * Unit tests for components
+
+ Note: It may take a few seconds for the app to start if no one has not accessed it recently
