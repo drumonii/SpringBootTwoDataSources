@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -21,9 +21,9 @@ bootRun {
     addResources = true
 }
 
-ext['assertj.version'] = '3.5.2'
-ext['thymeleaf.version'] = '3.0.1.RELEASE'
-ext['thymeleaf-layout-dialect.version'] = '2.0.1'
+ext['assertj.version'] = '3.6.1'
+ext['thymeleaf.version'] = '3.0.2.RELEASE'
+ext['thymeleaf-layout-dialect.version'] = '2.1.2'
 
 repositories {
     jcenter()
@@ -51,7 +51,7 @@ dependencies {
     compile 'org.webjars.bower:jquery:2.2.4'
 
     // Foundation
-    compile 'org.webjars.bower:foundation-sites:6.2.3'
+    compile 'org.webjars.bower:foundation-sites:6.2.4'
 
     // DataTables
     compile ('org.webjars.bower:datatables.net:1.10.12') {
@@ -66,7 +66,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14.1'
+    gradleVersion = '3.2.1'
 }
 
 task stage {
