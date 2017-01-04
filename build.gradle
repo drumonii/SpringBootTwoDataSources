@@ -51,7 +51,7 @@ dependencies {
     compile 'org.webjars.bower:jquery:2.2.4'
 
     // Foundation
-    compile 'org.webjars.bower:foundation-sites:6.2.4'
+    compile 'org.webjars.bower:foundation-sites:6.3.0'
 
     // DataTables
     compile ('org.webjars.bower:datatables.net:1.10.13') {
