@@ -13,7 +13,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE'
     }
 }
 
@@ -54,10 +54,10 @@ dependencies {
     compile 'org.webjars.bower:foundation-sites:6.2.4'
 
     // DataTables
-    compile ('org.webjars.bower:datatables.net:1.10.12') {
+    compile ('org.webjars.bower:datatables.net:1.10.13') {
         exclude group: 'org.webjars.bower'
     }
-    compile ('org.webjars.bower:datatables.net-zf:1.10.12') {
+    compile ('org.webjars.bower:datatables.net-zf:1.10.13') {
         exclude group: 'org.webjars.bower'
     }
 
