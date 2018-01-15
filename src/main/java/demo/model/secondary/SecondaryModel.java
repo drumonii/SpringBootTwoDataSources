@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Entity
 @Table(name = "SECONDARY_MODEL")
 public class SecondaryModel {
@@ -19,9 +17,8 @@ public class SecondaryModel {
 	@SequenceGenerator(name = "SECONDARY_MODEL_ID", sequenceName = "SECONDARY_MODEL_SEQ_ID", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SECONDARY_MODEL_ID")
 	private Integer id;
-	
-	@NotEmpty
-	@Column(name = "name", nullable = false)
+
+	@Column(name = "name", unique = true, nullable = false)
 	private String name;
 	
 	public Integer getId() {

@@ -4,9 +4,9 @@
       layout:decorate="~{layouts/main}">
 <head>
     <title th:text="#{secondary.title}">Query from the Secondary DataSource</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables.net-zf/css/dataTables.foundation.min.css}" />
-    <script th:src="@{/webjars/datatables.net/js/jquery.dataTables.min.js}"></script>
-    <script th:src="@{/webjars/datatables.net-zf/js/dataTables.foundation.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables.net-zf/css/dataTables.foundation.css}" />
+    <script th:src="@{/webjars/datatables.net/js/jquery.dataTables.js}"></script>
+    <script th:src="@{/webjars/datatables.net-zf/js/dataTables.foundation.js}"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -26,10 +26,10 @@
     </table>
     <hr/>
     <div class="success callout" th:if="${success}">
-        <p th:text="#{secondary.save.success(${success})}"></p>
+        <p th:text="#{secondary.save.success(${success.name})}"></p>
     </div>
     <h3 th:text="#{secondary.new}"></h3>
-    <form th:action="@{/secondary}" th:object="${secondaryModel}" method="post">
+    <form th:action="@{/secondary}" th:object="${secondaryForm}" method="post">
         <label th:class="${#fields.hasErrors('*{name}')} ? 'is-invalid-label' : ''">
 			<span th:text="#{secondaryModel.name}">Name</span>
 			<input type="text" th:field="*{name}" th:class="${#fields.hasErrors('*{name}')} ? 'is-invalid-input' : ''" />

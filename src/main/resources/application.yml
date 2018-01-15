@@ -8,6 +8,11 @@ spring:
   # Resource handling
   resources.cache-period: 31556926
 
+# Management
+management:
+  security:
+    enabled: false
+
 # Primary datasource properties
 primary:
   datasource:

@@ -8,4 +8,6 @@ import demo.model.secondary.SecondaryModel;
 @RepositoryRestResource(path = "secondary", collectionResourceRel = "data")
 public interface SecondaryRepository extends JpaRepository<SecondaryModel, Integer> {
 
+	SecondaryModel findByNameIgnoreCase(String name);
+
 }

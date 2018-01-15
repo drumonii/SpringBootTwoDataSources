@@ -6,14 +6,14 @@ apply plugin: 'org.springframework.boot'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-version = '2.4'
+version = '2.5'
 
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE'
     }
 }
 
@@ -21,9 +21,9 @@ bootRun {
     addResources = true
 }
 
-ext['assertj.version'] = '3.6.1'
-ext['thymeleaf.version'] = '3.0.2.RELEASE'
-ext['thymeleaf-layout-dialect.version'] = '2.1.2'
+ext['assertj.version'] = '3.8.0'
+ext['thymeleaf.version'] = '3.0.9.RELEASE'
+ext['thymeleaf-layout-dialect.version'] = '2.2.1'
 
 repositories {
     jcenter()
@@ -48,25 +48,21 @@ dependencies {
     compile 'org.webjars:webjars-locator'
 
     // jQuery
-    compile 'org.webjars.bower:jquery:2.2.4'
+    runtime 'org.webjars.npm:jquery:2.2.4'
 
     // Foundation
-    compile 'org.webjars.bower:foundation-sites:6.3.0'
+    runtime 'org.webjars.npm:foundation-sites:6.3.1'
 
     // DataTables
-    compile ('org.webjars.bower:datatables.net:1.10.13') {
-        exclude group: 'org.webjars.bower'
-    }
-    compile ('org.webjars.bower:datatables.net-zf:1.10.13') {
-        exclude group: 'org.webjars.bower'
-    }
+    runtime 'org.webjars.npm:datatables.net:1.10.16'
+    runtime 'org.webjars.npm:datatables.net-zf:1.10.16'
 
     // Testing
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.2.1'
+    gradleVersion = '4.3.1'
 }
 
 task stage {

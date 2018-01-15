@@ -1,20 +1,36 @@
 package demo.repository.primary;
 
+import demo.config.FlywayConfig;
+import demo.config.PrimaryDataSourceConfig;
+import demo.config.SecondaryDataSourceConfig;
+import demo.properties.FlywayPrimaryProperties;
+import demo.properties.FlywaySecondaryProperties;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit4.SpringRunner;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import demo.BaseSpringTestRunner;
-
-public class PrimaryRepositoryTest extends BaseSpringTestRunner {
+@RunWith(SpringRunner.class)
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = Replace.NONE)
+@EnableConfigurationProperties({ FlywayPrimaryProperties.class, FlywaySecondaryProperties.class })
+@Import({ FlywayConfig.class, PrimaryDataSourceConfig.class, SecondaryDataSourceConfig.class })
+public class PrimaryRepositoryTest {
 	
 	@Autowired
 	private PrimaryRepository primaryRepository;
-	
+
 	@Test
-	public void findAll() {
-		assertThat(primaryRepository.findAll()).isNotEmpty();
+	public void findByName() {
+		assertThat(primaryRepository.findByNameIgnoreCase("Unknown")).isNull();
+		assertThat(primaryRepository.findByNameIgnoreCase("ericka")).isNotNull();
 	}
 
 }

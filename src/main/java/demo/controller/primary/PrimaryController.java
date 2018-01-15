@@ -1,6 +1,8 @@
 package demo.controller.primary;
 
+import demo.form.primary.PrimaryForm;
 import demo.model.primary.PrimaryModel;
+import demo.model.primary.builder.PrimaryModelBuilder;
 import demo.repository.primary.PrimaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,17 +30,20 @@ public class PrimaryController {
 	
 	@GetMapping
 	public String getPrimary(Model model) {
-		model.addAttribute(new PrimaryModel());
+		model.addAttribute(new PrimaryForm());
 		return "primary";
 	}
 	
 	@PostMapping
-	public String savePrimary(@Valid PrimaryModel primaryModel, BindingResult result,
+	public String savePrimary(@ModelAttribute @Valid PrimaryForm form, BindingResult result,
 			RedirectAttributes redirectAttrs, Model model) {
 		if (result.hasErrors()) {
 			return "primary";
 		}
-		redirectAttrs.addFlashAttribute("success", repository.save(primaryModel).getName());
+		PrimaryModel newPrimaryModel = repository.save(new PrimaryModelBuilder()
+				.fromForm(form)
+				.build());
+		redirectAttrs.addFlashAttribute("success", newPrimaryModel);
 		return "redirect:/primary";
 	}
 

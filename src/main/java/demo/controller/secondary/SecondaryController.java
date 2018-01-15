@@ -1,6 +1,8 @@
 package demo.controller.secondary;
 
+import demo.form.secondary.SecondaryForm;
 import demo.model.secondary.SecondaryModel;
+import demo.model.secondary.builder.SecondaryModelBuilder;
 import demo.repository.secondary.SecondaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,17 +30,20 @@ public class SecondaryController {
 	
 	@GetMapping
 	public String getSecondary(Model model) {
-		model.addAttribute(new SecondaryModel());
+		model.addAttribute(new SecondaryForm());
 		return "secondary";
 	}
 	
 	@PostMapping
-	public String saveSecondary(@Valid SecondaryModel secondaryModel, BindingResult result,
+	public String saveSecondary(@ModelAttribute @Valid SecondaryForm form, BindingResult result,
 			RedirectAttributes redirectAttrs, Model model) {
 		if (result.hasErrors()) {
 			return "secondary";
 		}
-		redirectAttrs.addFlashAttribute("success", repository.save(secondaryModel).getName());
+		SecondaryModel newSecondaryModel = repository.save(new SecondaryModelBuilder()
+				.fromForm(form)
+				.build());
+		redirectAttrs.addFlashAttribute("success", newSecondaryModel);
 		return "redirect:/secondary";
 	}
 
