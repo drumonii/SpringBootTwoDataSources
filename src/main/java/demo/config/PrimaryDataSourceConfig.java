@@ -1,14 +1,10 @@
 package demo.config;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -17,6 +13,10 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
@@ -38,11 +38,18 @@ public class PrimaryDataSourceConfig {
 		return new JpaProperties();
 	}
 
+	@Bean
+	@Primary
+	@ConfigurationProperties(prefix = PRIMARY_DATASOURCE)
+	public DataSourceProperties primaryDataSourceProperties() {
+		return new DataSourceProperties();
+	}
+
 	@Bean(name = PRIMARY_DATASOURCE)
 	@Primary
 	@ConfigurationProperties(prefix = PRIMARY_DATASOURCE)
 	public DataSource primaryDataSource() {
-		return DataSourceBuilder.create().build();
+		return primaryDataSourceProperties().initializeDataSourceBuilder().build();
 	}
 
 	@Bean(name = PRIMARY_ENTITY_MANAGER)
@@ -59,7 +66,7 @@ public class PrimaryDataSourceConfig {
 				.dataSource(primaryDataSource())
 				.packages("demo.model.primary")
 				.persistenceUnit(PRIMARY_PERSISTENCE_UNIT)
-				.properties(primaryJpaProperties().getHibernateProperties(primaryDataSource()))
+				.properties(primaryJpaProperties().getProperties())
 				.build();
 	}
 

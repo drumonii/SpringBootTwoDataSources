@@ -6,21 +6,25 @@ spring:
   # Thymeleaf
   thymeleaf.mode: HTML
   # Resource handling
-  resources.cache-period: 31556926
+  resources.cache.period: 31556926s
+  # Flyway
+  flyway:
+    enabled: false # to keep boot from migrating
 
 # Management
 management:
-  security:
-    enabled: false
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: env
 
 # Primary datasource properties
 primary:
   datasource:
-    initialize: false
     url: jdbc:h2:mem:primary
     username: sa
     password:
-    driver-class-name: org.h2.Driver
   flyway:
     location: classpath:db/migration/primary
   jpa:
@@ -39,11 +43,9 @@ primary:
 # Secondary datasource properties
 secondary:
   datasource:
-    initialize: false
     url: jdbc:h2:mem:secondary
     username: sa
     password:
-    driver-class-name: org.h2.Driver
   flyway:
     location: classpath:db/migration/secondary
   jpa:
@@ -58,5 +60,3 @@ secondary:
         default_batch_fetch_size: 4
         max_fetch_depth: 2
         hbm2ddl.auto:
-flyway:
-  enabled: false # to keep boot from migrating

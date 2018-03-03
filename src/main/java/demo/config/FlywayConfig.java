@@ -1,7 +1,7 @@
 package demo.config;
 
-import javax.sql.DataSource;
-
+import demo.properties.FlywayPrimaryProperties;
+import demo.properties.FlywaySecondaryProperties;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import demo.properties.FlywayPrimaryProperties;
-import demo.properties.FlywaySecondaryProperties;
+import javax.sql.DataSource;
 
 @Configuration
 public class FlywayConfig {

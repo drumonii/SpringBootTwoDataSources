@@ -1,14 +1,10 @@
 package demo.config;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -16,6 +12,10 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
@@ -36,10 +36,16 @@ public class SecondaryDataSourceConfig {
 		return new JpaProperties();
 	}
 
+	@Bean
+	@ConfigurationProperties(prefix = SECONDARY_DATASOURCE)
+	public DataSourceProperties secondaryDataSourceProperties() {
+		return new DataSourceProperties();
+	}
+
 	@Bean(name = SECONDARY_DATASOURCE)
 	@ConfigurationProperties(prefix = SECONDARY_DATASOURCE)
 	public DataSource secondaryDataSource() {
-		return DataSourceBuilder.create().build();
+		return secondaryDataSourceProperties().initializeDataSourceBuilder().build();
 	}
 
 	@Bean(name = SECONDARY_ENTITY_MANAGER)
@@ -54,7 +60,7 @@ public class SecondaryDataSourceConfig {
 				.dataSource(secondaryDataSource())
 				.packages("demo.model.secondary")
 				.persistenceUnit(SECONDARY_PERSISTENCE_UNIT)
-				.properties(secondaryJpaProperties().getHibernateProperties(secondaryDataSource()))
+				.properties(secondaryJpaProperties().getProperties())
 				.build();
 	}
 

@@ -16,7 +16,6 @@
         <tr>
             <th>URL</th>
             <th>Username</th>
-            <th>Driver</th>
             <th>Dialect</th>
             <th>Flyway</th>
             <th>Show SQL</th>
@@ -52,16 +51,17 @@
             $.ajax({
                 url: /*[[@{/env}]]*/ '/env',
                 success: function(data) {
-                    var config = data['applicationConfig: [classpath:/application.yml]'];
+                	var config = data.propertySources.filter(function(propertySource) {
+                		return propertySource.name === 'applicationConfig: [classpath:/application.yml]';
+					})[0].properties;
                     $('#config-props-table').append(
                             '<tr>' +
-                            '<td>'+ config['primary.datasource.url'] +'</td>' +
-                            '<td>'+ config['primary.datasource.username'] +'</td>' +
-                            '<td>'+ config['primary.datasource.driver-class-name'] +'</td>' +
-                            '<td>'+ config['primary.jpa.properties.hibernate.dialect'] +'</td>' +
-                            '<td>'+ config['primary.flyway.location'] +'</td>' +
-                            '<td>'+ config['primary.jpa.properties.hibernate.show_sql'] +'</td>' +
-                            '<td>'+ config['primary.jpa.properties.hibernate.generate_statistics'] +'</td>' +
+                            '<td>'+ config['primary.datasource.url'].value +'</td>' +
+                            '<td>'+ config['primary.datasource.username'].value +'</td>' +
+                            '<td>'+ config['primary.jpa.properties.hibernate.dialect'].value +'</td>' +
+                            '<td>'+ config['primary.flyway.location'].value +'</td>' +
+                            '<td>'+ config['primary.jpa.properties.hibernate.show_sql'].value +'</td>' +
+                            '<td>'+ config['primary.jpa.properties.hibernate.generate_statistics'].value +'</td>' +
                             '</tr>');
                 }
             });

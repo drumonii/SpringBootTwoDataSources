@@ -1,10 +1,10 @@
 package demo.constraint;
 
 import demo.constraint.validator.UniqueSecondaryConstraintValidator;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import javax.validation.constraints.NotEmpty;
 import java.lang.annotation.*;
 
 @NotEmpty
