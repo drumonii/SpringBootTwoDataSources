@@ -7,14 +7,14 @@ apply plugin: 'io.spring.dependency-management'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-version = '2.6.4'
+version = '2.7.0'
 
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.4.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE'
     }
 }
 
@@ -57,8 +57,8 @@ dependencies {
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
+wrapper {
+    gradleVersion = '4.10.2'
 }
 
 task stage {

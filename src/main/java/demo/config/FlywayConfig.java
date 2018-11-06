@@ -3,7 +3,6 @@ package demo.config;
 import demo.properties.FlywayPrimaryProperties;
 import demo.properties.FlywaySecondaryProperties;
 import org.flywaydb.core.Flyway;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 import org.springframework.context.annotation.Bean;
@@ -15,31 +14,25 @@ import javax.sql.DataSource;
 @Configuration
 public class FlywayConfig {
 
-	@Autowired
-	@Qualifier(PrimaryDataSourceConfig.PRIMARY_DATASOURCE)
-	private DataSource primaryDataSource;
-	
-	@Autowired
-	@Qualifier(SecondaryDataSourceConfig.SECONDARY_DATASOURCE)
-	private DataSource secondaryDataSource;
-
 	@Bean(initMethod = "migrate")
 	@FlywayDataSource
 	@Primary
-	public Flyway primaryFlyway(FlywayPrimaryProperties properties) {
-		Flyway flyway = new Flyway();
-		flyway.setDataSource(primaryDataSource);
-		flyway.setLocations(properties.getLocation());
-		return flyway;
+	public Flyway primaryFlyway(@Qualifier(PrimaryDataSourceConfig.PRIMARY_DATASOURCE) DataSource primaryDataSource,
+			FlywayPrimaryProperties properties) {
+		return Flyway.configure()
+				.dataSource(primaryDataSource)
+				.locations(properties.getLocation())
+				.load();
 	}
 	
 	@Bean(initMethod = "migrate")
 	@FlywayDataSource
-	public Flyway secondaryFlyway(FlywaySecondaryProperties properties) {
-		Flyway flyway = new Flyway();
-		flyway.setDataSource(secondaryDataSource);
-		flyway.setLocations(properties.getLocation());
-		return flyway;
+	public Flyway secondaryFlyway(@Qualifier(SecondaryDataSourceConfig.SECONDARY_DATASOURCE) DataSource secondaryDataSource,
+			FlywaySecondaryProperties properties) {
+		return Flyway.configure()
+				.dataSource(secondaryDataSource)
+				.locations(properties.getLocation())
+				.load();
 	}
 
 }
