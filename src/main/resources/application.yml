@@ -3,8 +3,14 @@ spring:
   data.rest.base-path: /api
   # Internalization
   messages.basename: i18n/messages
-  # Resource handling
-  resources.cache.period: 31556926s
+  # JPA
+  jpa:
+    open-in-view: false
+  # Resources
+  resources:
+    cache:
+      cachecontrol:
+        max-age: 31536000s
   # Flyway
   flyway:
     enabled: false # to keep boot from migrating
