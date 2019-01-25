@@ -14,9 +14,6 @@ public class UniqueSecondaryConstraintValidator implements ConstraintValidator<U
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if (value == null) {
-			return false;
-		}
 		return secondaryRepository.findByNameIgnoreCase(value) == null;
 	}
 

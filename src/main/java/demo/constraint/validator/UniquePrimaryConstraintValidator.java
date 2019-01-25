@@ -14,9 +14,6 @@ public class UniquePrimaryConstraintValidator implements ConstraintValidator<Uni
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if (value == null) {
-			return false;
-		}
 		return primaryRepository.findByNameIgnoreCase(value) == null;
 	}
 
