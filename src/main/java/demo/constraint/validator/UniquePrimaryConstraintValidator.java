@@ -1,8 +1,6 @@
 package demo.constraint.validator;
 
 import demo.constraint.UniquePrimary;
-import demo.form.primary.PrimaryForm;
-import demo.model.primary.PrimaryModel;
 import demo.repository.primary.PrimaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,11 +11,6 @@ public class UniquePrimaryConstraintValidator implements ConstraintValidator<Uni
 
 	@Autowired
 	private PrimaryRepository primaryRepository;
-
-	@Override
-	public void initialize(UniquePrimary constraintAnnotation) {
-		// Nothing to do in initialize
-	}
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {

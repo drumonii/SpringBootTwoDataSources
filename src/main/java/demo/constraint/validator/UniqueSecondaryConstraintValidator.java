@@ -1,7 +1,6 @@
 package demo.constraint.validator;
 
 import demo.constraint.UniqueSecondary;
-import demo.form.secondary.SecondaryForm;
 import demo.repository.secondary.SecondaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,11 +11,6 @@ public class UniqueSecondaryConstraintValidator implements ConstraintValidator<U
 
 	@Autowired
 	private SecondaryRepository secondaryRepository;
-
-	@Override
-	public void initialize(UniqueSecondary constraintAnnotation) {
-		// Nothing to do in initialize
-	}
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
