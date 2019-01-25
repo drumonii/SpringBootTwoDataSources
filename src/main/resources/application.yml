@@ -13,6 +13,14 @@ spring:
   flyway:
     enabled: false # to keep boot from migrating
 
+# Management
+management:
+  endpoints:
+    web:
+      base-path: /api
+      exposure:
+        include: env
+
 # Primary datasource properties
 primary:
   datasource:
