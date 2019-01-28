@@ -4,7 +4,7 @@ This project demonstrates how to use two `DataSource` s with Spring Boot 2.1.
 
 It utilizes: 
 
-* Spring Data https://github.com/spring-projects/spring-data-jpa[JPA] / https://github.com/spring-projects/spring-data-rest[REST]
+* Spring Data https://github.com/spring-projects/spring-data-jpa[JPA]
 * https://github.com/flyway/flyway[Flyway] migrations for the two `DataSource` s
 * Separate Hibernate properties for each `DataSource` defined in the application.yml
 * Unit tests for components

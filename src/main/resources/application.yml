@@ -1,6 +1,4 @@
 spring:
-  # Data REST base URI
-  data.rest.base-path: /api
   # Internalization
   messages.basename: i18n/messages
   # JPA
