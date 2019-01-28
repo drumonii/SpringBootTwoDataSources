@@ -17,7 +17,7 @@ spring:
 management:
   endpoints:
     web:
-      base-path: /
+      base-path: /api
       exposure:
         include: env
 
