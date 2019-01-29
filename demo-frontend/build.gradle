@@ -1,0 +1,25 @@
+apply plugin: 'com.moowork.node'
+
+buildscript { 
+    repositories {
+        maven {
+          url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+    }
+}
+
+node {
+    version = '10.15.0'
+    npmVersion = '6.7.0'
+    download = true
+    workDir = file("${project.buildDir}/node")
+    npmWorkDir = file("${project.buildDir}/npm")
+    nodeModulesDir = file("${project.projectDir}")
+}
+
+task npmBuild(type: NpmTask, dependsOn: 'npmInstall') {
+    args = ['run', 'build']
+}

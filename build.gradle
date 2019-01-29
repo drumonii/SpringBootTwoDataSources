@@ -18,6 +18,13 @@ buildscript {
     }
 }
 
+bootJar {
+    dependsOn ':demo-frontend:npmBuild'
+    from ("${project(':demo-frontend').projectDir}/dist/demo-frontend") {
+        into 'static'
+    }
+}
+
 repositories {
     jcenter()
 }
