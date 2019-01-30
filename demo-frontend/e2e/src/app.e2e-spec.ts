@@ -8,9 +8,8 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should show the app', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to demo-frontend!');
   });
 
   afterEach(async () => {
