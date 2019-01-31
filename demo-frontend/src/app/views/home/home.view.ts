@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
+import { HomeService } from './home.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.view.html',
@@ -7,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeView implements OnInit {
 
-  constructor() { }
+  springBootVersion$: Observable<string>;
+
+  constructor(private homeService: HomeService) {}
 
   ngOnInit() {
+    this.getSpringBootVersion();
+  }
+
+  private getSpringBootVersion() {
+    this.springBootVersion$ = this.homeService.getSpringBootVersion();
   }
 
 }

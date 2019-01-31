@@ -1,3 +1,11 @@
-<p>
-  home works!
-</p>
+<h3 id="project-overview">Spring Boot with Two DataSources Demonstration Project</h3>
+<ng-container *ngIf="(springBootVersion$ | async) as springBootVersion">
+  <p id="project-details">This project demonstrates how to use two DataSources with Spring Boot {{springBootVersion}}</p>
+</ng-container>
+<p>It utilizes:</p>
+<ul id="project-features-list">
+  <li>Spring Data JPA</li>
+  <li>Flyway migrations for the two DataSources</li>
+  <li>Separate Hibernate properties for each DataSource</li>
+  <li>Tests for components</li>
+</ul>
