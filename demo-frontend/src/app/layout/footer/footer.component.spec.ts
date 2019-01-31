@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { FooterComponent } from './footer.component';
 
@@ -19,7 +20,9 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should show the GitHub link', () => {
+    const gitHubLink = fixture.debugElement.query(By.css('#github-link'));
+    expect(gitHubLink.nativeElement.textContent.trim()).toBe('GitHub', 'GitHub link text');
+    expect(gitHubLink.nativeElement.href).toBe('https://github.com/drumonii/SpringBootTwoDataSources', 'GitHub href');
   });
 });
