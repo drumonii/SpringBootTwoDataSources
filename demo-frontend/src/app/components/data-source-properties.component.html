@@ -1,0 +1,32 @@
+<table id="config-props-table">
+  <thead>
+  <tr>
+    <th>URL</th>
+    <th>Username</th>
+    <th>Dialect</th>
+    <th>Flyway</th>
+    <th>Show SQL</th>
+    <th>Statistics</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <ng-container *ngIf="(datasourceProperties$ | async) as datasourceProperties; else loadingDatasourceProperties">
+      <td>{{datasourceProperties.jdbcUrl}}</td>
+      <td>{{datasourceProperties.username}}</td>
+      <td>{{datasourceProperties.dialect}}</td>
+      <td>{{datasourceProperties.flywayPath}}</td>
+      <td>{{datasourceProperties.showSql}}</td>
+      <td>{{datasourceProperties.showStats}}</td>
+    </ng-container>
+    <ng-template #loadingDatasourceProperties>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </ng-template>
+  </tr>
+  </tbody>
+</table>
