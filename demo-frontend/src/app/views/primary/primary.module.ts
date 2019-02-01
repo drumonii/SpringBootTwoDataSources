@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { PrimaryView } from './primary.view';
 import { PrimaryRoutingModule } from './primary-routing.module';
+import { PrimaryService } from './primary.service';
+
+import { DataSourcePropertiesModule } from '@components/data-source-properties.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +13,11 @@ import { PrimaryRoutingModule } from './primary-routing.module';
   ],
   imports: [
     CommonModule,
-    PrimaryRoutingModule
+    PrimaryRoutingModule,
+    DataSourcePropertiesModule
+  ],
+  providers: [
+    PrimaryService
   ]
 })
 export class PrimaryModule { }
