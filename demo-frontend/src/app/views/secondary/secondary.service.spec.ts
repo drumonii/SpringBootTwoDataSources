@@ -2,8 +2,11 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController, RequestMatch } from '@angular/common/http/testing';
 
 import { ActuatorEnvResponse } from '@models/actuator-env-response';
+import { ValidationResponse } from '@models/validation-response';
 
 import { SecondaryService } from './secondary.service';
+import { SecondaryEntity } from './secondary-entity';
+import { SecondaryForm } from './secondary-form';
 
 describe('SecondaryService', () => {
   beforeEach(() => {
@@ -99,6 +102,35 @@ describe('SecondaryService', () => {
       const testReq = httpMock.expectOne(requestMatch);
 
       testReq.flush(mockActuatorEnvResponse);
+    }));
+
+  });
+
+  describe('saveSecondary', () => {
+
+    const requestMatch: RequestMatch = { method: 'POST', url: '/secondary' };
+
+    it('should POST new secondary', inject([SecondaryService, HttpTestingController],
+      (service: SecondaryService, httpMock: HttpTestingController) => {
+      const newSecondaryForm: SecondaryForm = {
+        name: 'Hello Secondary World'
+      };
+      const mockValidationResponse: ValidationResponse<SecondaryEntity> = {
+        data: {
+          id: 1,
+          name: newSecondaryForm.name
+        }
+      };
+
+      service.saveSecondary(newSecondaryForm).subscribe(validationResponse => {
+        expect(validationResponse).toEqual(mockValidationResponse);
+      });
+
+      const testReq = httpMock.expectOne(requestMatch);
+      expect(testReq.request.detectContentTypeHeader()).toBe('application/json');
+      expect(testReq.request.body).toEqual(newSecondaryForm);
+
+      testReq.flush(mockValidationResponse);
     }));
 
   });

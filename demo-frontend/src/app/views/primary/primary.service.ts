@@ -6,6 +6,10 @@ import { map } from 'rxjs/operators';
 
 import { DatasourceProperties } from '@models/datasource-properties';
 import { ActuatorEnvResponse } from '@models/actuator-env-response';
+import { ValidationResponse } from '@models/validation-response';
+
+import { PrimaryForm } from './primary-form';
+import { PrimaryEntity } from './primary-entity';
 
 @Injectable()
 export class PrimaryService {
@@ -17,6 +21,10 @@ export class PrimaryService {
       .pipe(
         map(actuatorEnvResponse => this.extractProperties(actuatorEnvResponse))
       );
+  }
+
+  savePrimary(form: PrimaryForm): Observable<ValidationResponse<PrimaryEntity>> {
+    return this.httpClient.post<ValidationResponse<PrimaryEntity>>('/primary', form);
   }
 
   private extractProperties(actuatorEnvResponse: ActuatorEnvResponse): DatasourceProperties {

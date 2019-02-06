@@ -2,8 +2,11 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController, RequestMatch } from '@angular/common/http/testing';
 
 import { ActuatorEnvResponse } from '@models/actuator-env-response';
+import { ValidationResponse } from '@models/validation-response';
 
 import { PrimaryService } from './primary.service';
+import { PrimaryForm } from './primary-form';
+import { PrimaryEntity } from './primary-entity';
 
 describe('PrimaryService', () => {
   beforeEach(() => {
@@ -99,6 +102,35 @@ describe('PrimaryService', () => {
       const testReq = httpMock.expectOne(requestMatch);
 
       testReq.flush(mockActuatorEnvResponse);
+    }));
+
+  });
+
+  describe('savePrimary', () => {
+
+    const requestMatch: RequestMatch = { method: 'POST', url: '/primary' };
+
+    it('should POST new primary', inject([PrimaryService, HttpTestingController],
+      (service: PrimaryService, httpMock: HttpTestingController) => {
+      const newPrimaryForm: PrimaryForm = {
+        name: 'Hello Primary World'
+      };
+      const mockValidationResponse: ValidationResponse<PrimaryEntity> = {
+        data: {
+          id: 1,
+          name: newPrimaryForm.name
+        }
+      };
+
+      service.savePrimary(newPrimaryForm).subscribe(validationResponse => {
+        expect(validationResponse).toEqual(mockValidationResponse);
+      });
+
+      const testReq = httpMock.expectOne(requestMatch);
+      expect(testReq.request.detectContentTypeHeader()).toBe('application/json');
+      expect(testReq.request.body).toEqual(newPrimaryForm);
+
+      testReq.flush(mockValidationResponse);
     }));
 
   });

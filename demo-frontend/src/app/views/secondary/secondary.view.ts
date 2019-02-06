@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
@@ -15,7 +16,11 @@ export class SecondaryView implements OnInit {
 
   secondaryDatasourceProperties$: Observable<DatasourceProperties>;
 
-  constructor(private secondaryService: SecondaryService) {}
+  newSecondaryForm = this.formBuilder.group({
+    name: ['', Validators.required]
+  });
+
+  constructor(private secondaryService: SecondaryService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.getSecondaryDataSourceProperties();
@@ -23,6 +28,19 @@ export class SecondaryView implements OnInit {
 
   private getSecondaryDataSourceProperties() {
     this.secondaryDatasourceProperties$ = this.secondaryService.getSecondaryDataSourceEnv();
+  }
+
+  submitNewSecondary(): void {
+    if (this.newSecondaryForm.valid) {
+      this.secondaryService.saveSecondary({ name: this.newSecondaryForm.get('name').value })
+        .subscribe(response => {
+          if (response.errors) {
+            this.newSecondaryForm.setErrors(response.errors);
+          } else {
+            // TODO: Toast of new secondary added successfully
+          }
+        });
+    }
   }
 
 }

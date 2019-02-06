@@ -3,3 +3,19 @@
 </h3>
 
 <app-data-source-properties [datasourceProperties$]="primaryDatasourceProperties$"></app-data-source-properties>
+
+<form id="new-primary-form" [formGroup]="newPrimaryForm" (ngSubmit)="submitNewPrimary()">
+  <label for="name-input">Name</label>
+  <input id="name-input" type="text" formControlName="name">
+  <p id="invalid-name-feedback" *ngIf="newPrimaryForm.get('name').invalid && (newPrimaryForm.get('name').dirty || newPrimaryForm.get('name').touched)">
+    This field is required
+  </p>
+  <p id="name-validation-feedback" *ngIf="newPrimaryForm.hasError('name')">
+    {{newPrimaryForm.getError('name').message}}
+  </p>
+  <p>
+    <button id="new-primary-btn" type="submit" [disabled]="newPrimaryForm.invalid">
+      Save
+    </button>
+  </p>
+</form>

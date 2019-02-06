@@ -3,3 +3,19 @@
 </h3>
 
 <app-data-source-properties [datasourceProperties$]="secondaryDatasourceProperties$"></app-data-source-properties>
+
+<form id="new-secondary-form" [formGroup]="newSecondaryForm" (ngSubmit)="submitNewSecondary()">
+  <label for="name-input">Name</label>
+  <input id="name-input" type="text" formControlName="name">
+  <p id="invalid-name-feedback" *ngIf="newSecondaryForm.get('name').invalid && (newSecondaryForm.get('name').dirty || newSecondaryForm.get('name').touched)">
+    This field is required
+  </p>
+  <p id="name-validation-feedback" *ngIf="newSecondaryForm.hasError('name')">
+    {{newSecondaryForm.getError('name').message}}
+  </p>
+  <p>
+    <button id="new-secondary-btn" type="submit" [disabled]="newSecondaryForm.invalid">
+      Save
+    </button>
+  </p>
+</form>
