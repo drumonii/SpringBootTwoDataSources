@@ -10,9 +10,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Locale;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -29,6 +33,11 @@ public class SecondaryRestControllerTest {
 
 	@Autowired
 	private ObjectMapper objectMapper;
+
+	@Autowired
+	private MessageSource messageSource;
+
+	private static final Locale LOCALE = LocaleContextHolder.getLocale();
 
 	@Autowired
 	private SecondaryRepository secondaryRepository;
@@ -49,7 +58,12 @@ public class SecondaryRestControllerTest {
 		mockMvc.perform(post("/api/secondary")
 				.content(objectMapper.writeValueAsString(form))
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(jsonPath("$.errors").exists())
+				.andExpect(jsonPath("$.errors.name").exists())
+				.andExpect(jsonPath("$.errors.name.message",
+						is(messageSource.getMessage("NotEmpty.secondaryForm.name", null, LOCALE))));
 	}
 
 	@Test
@@ -62,8 +76,9 @@ public class SecondaryRestControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-				.andExpect(jsonPath("$.id").isNumber())
-				.andExpect(jsonPath("$.name", is(form.getName())));
+				.andExpect(jsonPath("$.data").exists())
+				.andExpect(jsonPath("$.data.id").isNumber())
+				.andExpect(jsonPath("$.data.name", is(form.getName())));
 
 	}
 
@@ -79,7 +94,12 @@ public class SecondaryRestControllerTest {
 		mockMvc.perform(post("/api/secondary")
 				.content(objectMapper.writeValueAsString(form))
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(jsonPath("$.errors").exists())
+				.andExpect(jsonPath("$.errors.name").exists())
+				.andExpect(jsonPath("$.errors.name.message",
+						is(messageSource.getMessage("UniqueSecondary.secondaryForm.name", null, LOCALE))));
 	}
 
 }

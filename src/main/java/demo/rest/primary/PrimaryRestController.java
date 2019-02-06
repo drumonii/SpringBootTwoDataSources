@@ -4,7 +4,10 @@ import demo.form.primary.PrimaryForm;
 import demo.model.primary.PrimaryModel;
 import demo.model.primary.builder.PrimaryModelBuilder;
 import demo.repository.primary.PrimaryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import demo.rest.validation.ValidationResponse;
+import demo.rest.validation.builder.ValidationResponseWithErrorsBuilder;
+import demo.rest.validation.builder.ValidationResponseWithoutErrorsBuilder;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
@@ -21,8 +24,13 @@ import static org.springframework.data.domain.ExampleMatcher.StringMatcher.CONTA
 @RequestMapping("/api/primary")
 public class PrimaryRestController {
 
-	@Autowired
-	private PrimaryRepository primaryRepository;
+	private final PrimaryRepository primaryRepository;
+	private final MessageSource messageSource;
+
+	public PrimaryRestController(PrimaryRepository primaryRepository, MessageSource messageSource) {
+		this.primaryRepository = primaryRepository;
+		this.messageSource = messageSource;
+	}
 
 	@GetMapping
 	public Page<PrimaryModel> getPrimary(Pageable pageable, PrimaryModel primaryModel) {
@@ -35,14 +43,21 @@ public class PrimaryRestController {
 	}
 
 	@PostMapping
-	public ResponseEntity<PrimaryModel> savePrimary(@RequestBody @Valid PrimaryForm form, BindingResult result) {
+	public ResponseEntity<ValidationResponse<PrimaryModel>> savePrimary(@RequestBody @Valid PrimaryForm form,
+			BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.ok(new ValidationResponseWithErrorsBuilder<PrimaryModel>(messageSource)
+					.fromBindingResult(result)
+					.build());
 		}
+
 		PrimaryModel newPrimaryModel = primaryRepository.save(new PrimaryModelBuilder()
 				.fromForm(form)
 				.build());
-		return ResponseEntity.ok(newPrimaryModel);
+
+		return ResponseEntity.ok(new ValidationResponseWithoutErrorsBuilder<PrimaryModel>()
+				.withData(newPrimaryModel)
+				.build());
 	}
 
 }
