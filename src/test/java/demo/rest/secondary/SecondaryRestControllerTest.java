@@ -1,43 +1,20 @@
 package demo.rest.secondary;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import demo.form.secondary.SecondaryForm;
 import demo.model.secondary.SecondaryModel;
 import demo.model.secondary.builder.SecondaryModelBuilder;
 import demo.repository.secondary.SecondaryRepository;
+import demo.rest.AbstractRestControllerTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Locale;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-public class SecondaryRestControllerTest {
-
-	@Autowired
-	private MockMvc mockMvc;
-
-	@Autowired
-	private ObjectMapper objectMapper;
-
-	@Autowired
-	private MessageSource messageSource;
-
-	private static final Locale LOCALE = LocaleContextHolder.getLocale();
+public class SecondaryRestControllerTest extends AbstractRestControllerTest {
 
 	@Autowired
 	private SecondaryRepository secondaryRepository;
