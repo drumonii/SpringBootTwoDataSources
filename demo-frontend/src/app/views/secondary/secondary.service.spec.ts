@@ -3,6 +3,8 @@ import { HttpClientTestingModule, HttpTestingController, RequestMatch } from '@a
 
 import { ActuatorEnvResponse } from '@models/actuator-env-response';
 import { ValidationResponse } from '@models/validation-response';
+import { DatatableRequest } from '@models/datatable-request';
+import { PaginatedResponse } from '@models/paginated-response';
 
 import { SecondaryService } from './secondary.service';
 import { SecondaryEntity } from './secondary-entity';
@@ -133,5 +135,54 @@ describe('SecondaryService', () => {
       testReq.flush(mockValidationResponse);
     }));
 
+  });
+
+  describe('getSecondary', () => {
+
+    const mockRequest: DatatableRequest = {
+      page: 0,
+      size: 10,
+      sorts: ['name,asc']
+    };
+
+    const requestMatch: RequestMatch = {
+      method: 'GET',
+      url: `/secondary?page=${mockRequest.page}&size=${mockRequest.size}&sort=${mockRequest.sorts[0]}`
+    };
+
+    it('should GET secondary', inject([SecondaryService, HttpTestingController],
+      (service: SecondaryService, httpMock: HttpTestingController) => {
+      const mockPaginatedResponse: PaginatedResponse<SecondaryEntity> = {
+        content: [
+          {
+            id: 1,
+            name: 'Hello World!'
+          }
+        ],
+        totalElements: 1
+      };
+
+      service.getSecondary(mockRequest).subscribe(paginatedResponse => {
+        expect(paginatedResponse).toEqual(mockPaginatedResponse);
+      });
+
+      const testReq = httpMock.expectOne(requestMatch);
+
+      testReq.flush(mockPaginatedResponse);
+    }));
+
+    it('should GET secondary with error', inject([SecondaryService, HttpTestingController],
+      (service: SecondaryService, httpMock: HttpTestingController) => {
+      service.getSecondary(mockRequest).subscribe(paginatedResponse => {
+        expect(paginatedResponse).toEqual({
+          content: [],
+          totalElements: 0
+        });
+      });
+
+      const testReq = httpMock.expectOne(requestMatch);
+
+      testReq.error(new ErrorEvent('500'));
+    }));
   });
 });

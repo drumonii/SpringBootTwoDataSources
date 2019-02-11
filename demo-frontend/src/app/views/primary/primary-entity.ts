@@ -1,4 +1,3 @@
-export interface PrimaryEntity {
-  id: number;
-  name: string;
-}
+import { BaseEntity } from '@models/base-entity';
+
+export interface PrimaryEntity extends BaseEntity {}

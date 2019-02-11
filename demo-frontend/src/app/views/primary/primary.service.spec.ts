@@ -3,6 +3,8 @@ import { HttpClientTestingModule, HttpTestingController, RequestMatch } from '@a
 
 import { ActuatorEnvResponse } from '@models/actuator-env-response';
 import { ValidationResponse } from '@models/validation-response';
+import { DatatableRequest } from '@models/datatable-request';
+import { PaginatedResponse } from '@models/paginated-response';
 
 import { PrimaryService } from './primary.service';
 import { PrimaryForm } from './primary-form';
@@ -133,5 +135,54 @@ describe('PrimaryService', () => {
       testReq.flush(mockValidationResponse);
     }));
 
+  });
+
+  describe('getSecondary', () => {
+
+    const mockRequest: DatatableRequest = {
+      page: 0,
+      size: 10,
+      sorts: ['name,asc']
+    };
+
+    const requestMatch: RequestMatch = {
+      method: 'GET',
+      url: `/primary?page=${mockRequest.page}&size=${mockRequest.size}&sort=${mockRequest.sorts[0]}`
+    };
+
+    it('should GET secondary', inject([PrimaryService, HttpTestingController],
+      (service: PrimaryService, httpMock: HttpTestingController) => {
+      const mockPaginatedResponse: PaginatedResponse<PrimaryEntity> = {
+        content: [
+          {
+            id: 1,
+            name: 'Hello World!'
+          }
+        ],
+        totalElements: 1
+      };
+
+      service.getPrimary(mockRequest).subscribe(paginatedResponse => {
+        expect(paginatedResponse).toEqual(mockPaginatedResponse);
+      });
+
+      const testReq = httpMock.expectOne(requestMatch);
+
+      testReq.flush(mockPaginatedResponse);
+    }));
+
+    it('should GET secondary with error', inject([PrimaryService, HttpTestingController],
+      (service: PrimaryService, httpMock: HttpTestingController) => {
+      service.getPrimary(mockRequest).subscribe(paginatedResponse => {
+        expect(paginatedResponse).toEqual({
+          content: [],
+          totalElements: 0
+        });
+      });
+
+      const testReq = httpMock.expectOne(requestMatch);
+
+      testReq.error(new ErrorEvent('500'));
+    }));
   });
 });

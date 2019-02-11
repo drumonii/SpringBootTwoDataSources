@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { DatasourceProperties } from '@models/datasource-properties';
 import { ActuatorEnvResponse } from '@models/actuator-env-response';
 import { ValidationResponse } from '@models/validation-response';
+import { DatatableRequest } from '@models/datatable-request';
+import { PaginatedResponse } from '@models/paginated-response';
 
 import { SecondaryForm } from './secondary-form';
 import { SecondaryEntity } from './secondary-entity';
@@ -25,6 +27,25 @@ export class SecondaryService {
 
   saveSecondary(form: SecondaryForm): Observable<ValidationResponse<SecondaryEntity>> {
     return this.httpClient.post<ValidationResponse<SecondaryEntity>>('/secondary', form);
+  }
+
+  getSecondary(request: DatatableRequest): Observable<PaginatedResponse<SecondaryEntity>> {
+    let params = new HttpParams()
+      .append('page', request.page.toString(10))
+      .append('size', request.size.toString(10));
+    for (const sort of request.sorts) {
+      params = params.append('sort', sort);
+    }
+    const options = {
+      params
+    };
+    return this.httpClient.get<PaginatedResponse<SecondaryEntity>>('/secondary', options)
+      .pipe(
+        catchError(() => of({
+          content: [],
+          totalElements: 0
+        }))
+      );
   }
 
   private extractProperties(actuatorEnvResponse: ActuatorEnvResponse): DatasourceProperties {

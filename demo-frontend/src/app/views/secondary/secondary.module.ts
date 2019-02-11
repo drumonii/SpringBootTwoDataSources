@@ -7,6 +7,7 @@ import { SecondaryRoutingModule } from './secondary-routing.module';
 import { SecondaryService } from './secondary.service';
 
 import { DataSourcePropertiesModule } from '@components/data-source-properties.module';
+import { DatatableModule } from '@components/datatable.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DataSourcePropertiesModule } from '@components/data-source-properties.m
     CommonModule,
     ReactiveFormsModule,
     SecondaryRoutingModule,
-    DataSourcePropertiesModule
+    DataSourcePropertiesModule,
+    DatatableModule
   ],
   providers: [
     SecondaryService

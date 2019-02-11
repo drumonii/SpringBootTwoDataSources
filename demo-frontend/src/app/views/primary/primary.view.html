@@ -19,3 +19,7 @@
     </button>
   </p>
 </form>
+
+<app-datatable [data$]="data$" [isLoadingResults]="isLoadingResults" [resultsLength]="resultsLength"
+ (getDataEvent)="getPrimary($event)">
+</app-datatable>

@@ -1,11 +1,14 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
 import { of } from 'rxjs';
 
 import { DataSourcePropertiesComponent } from '@components/data-source-properties.component';
+import { DatatableComponent } from '@components/datatable.component';
 import { ValidationResponse } from '@models/validation-response';
+import { PaginatedResponse } from '@models/paginated-response';
 
 import { SecondaryModule } from './secondary.module';
 import { SecondaryView } from './secondary.view';
@@ -16,9 +19,19 @@ describe('SecondaryView', () => {
   let component: SecondaryView;
   let fixture: ComponentFixture<SecondaryView>;
 
+  const paginatedResponse: PaginatedResponse<SecondaryEntity> = {
+    content: [
+      {
+        id: 1,
+        name: 'Hello World!'
+      }
+    ],
+    totalElements: 1
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, SecondaryModule]
+      imports: [HttpClientTestingModule, NoopAnimationsModule, SecondaryModule]
     })
     .compileComponents();
   }));
@@ -28,6 +41,7 @@ describe('SecondaryView', () => {
     component = fixture.componentInstance;
 
     spyOn(secondaryService, 'getSecondaryDataSourceEnv');
+    spyOn(secondaryService, 'getSecondary').and.returnValue(of(paginatedResponse));
 
     fixture.detectChanges();
   }));
@@ -36,6 +50,10 @@ describe('SecondaryView', () => {
     expect(fixture.debugElement.query(By.directive(DataSourcePropertiesComponent))).toBeTruthy('datasource props component');
     expect(secondaryService.getSecondaryDataSourceEnv).toHaveBeenCalled();
   }));
+
+  it('should get the paginated secondary', () => {
+    expect(fixture.debugElement.query(By.directive(DatatableComponent))).toBeTruthy('datatable component');
+  });
 
   describe('save new secondary', () => {
 
@@ -51,7 +69,7 @@ describe('SecondaryView', () => {
 
         fixture.detectChanges();
 
-        expect(fixture.debugElement.query(By.css('#invalid-name-feedback'))).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('#invalid-name-feedback'))).toBeTruthy('invalid name feedback');
         expect(component.newSecondaryForm.valid).toBe(false);
       });
 
@@ -79,7 +97,7 @@ describe('SecondaryView', () => {
         const validationFeedback = fixture.debugElement.query(By.css('#name-validation-feedback'));
         expect(validationFeedback.nativeElement.textContent.trim()).toBe('Name already exists');
         expect(component.newSecondaryForm.valid).toBe(false);
-        expect(secondaryService.saveSecondary).toHaveBeenCalledWith({ name: name.value })
+        expect(secondaryService.saveSecondary).toHaveBeenCalledWith({ name: 'Hello World!' });
       }));
 
     });
@@ -104,10 +122,16 @@ describe('SecondaryView', () => {
 
         component.submitNewSecondary();
 
-        fixture.detectChanges();
+        // fixture.detectChanges(); // calling this oddly causes ExpressionChangedAfterItHasBeenCheckedError
 
-        expect(fixture.debugElement.query(By.css('#name-validation-feedback'))).toBeFalsy();
-        expect(secondaryService.saveSecondary).toHaveBeenCalledWith({ name: name.value })
+        expect(fixture.debugElement.query(By.css('#name-validation-feedback'))).toBeFalsy('name validation feedback');
+        expect(secondaryService.saveSecondary).toHaveBeenCalledWith({ name: 'Hello World!' });
+        expect(secondaryService.getSecondary).toHaveBeenCalledWith({
+          page: 0,
+          size: 10,
+          sorts: ['name,asc']
+        });
+        expect(name.value).toBeNull();
       }));
 
     });
