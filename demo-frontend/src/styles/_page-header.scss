@@ -1,0 +1,10 @@
+@mixin page-header-theme($demo-app-theme) {
+  $primary: map-get($demo-app-theme, primary);
+  $primary-color: mat-color($primary);
+  $text-color: mat-color($primary, darker-contrast);
+
+  .page-header {
+    background: $primary-color;
+    color: $text-color;
+  }
+}

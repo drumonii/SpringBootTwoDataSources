@@ -1,0 +1,21 @@
+.demo-footer {
+  padding: 2em 1em 1.25em;
+  margin-top: 1.5em;
+}
+
+.demo-footer-list {
+
+}
+
+.demo-footer-github {
+  a {
+    font-size: 16px;
+    padding: 0;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

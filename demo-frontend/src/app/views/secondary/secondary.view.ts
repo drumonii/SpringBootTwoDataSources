@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -27,7 +28,7 @@ export class SecondaryView implements OnInit {
   resultsLength: number;
   isLoadingResults: boolean;
 
-  constructor(private secondaryService: SecondaryService, private formBuilder: FormBuilder) {}
+  constructor(private secondaryService: SecondaryService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.getSecondaryDataSourceProperties();
@@ -56,7 +57,9 @@ export class SecondaryView implements OnInit {
           if (response.errors) {
             this.newSecondaryForm.setErrors(response.errors);
           } else {
-            // TODO: Toast of new secondary added successfully
+            this.snackBar.open(`Successfully saved new Entity: '${response.data.name}'`, '', {
+              duration: 3000
+            });
             this.newSecondaryForm.reset();
             this.getSecondary({ page: 0, size: 10, sorts: ['name,asc'] });
           }

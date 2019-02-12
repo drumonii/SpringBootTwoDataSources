@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule } from '@angular/material';
+import { MatPaginatorModule, MatProgressBarModule, MatSortModule, MatTableModule } from '@angular/material';
 
 import { DatatableComponent } from '@components/datatable.component';
 
@@ -12,7 +12,7 @@ import { DatatableComponent } from '@components/datatable.component';
     CommonModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatTableModule
   ],
   exports: [

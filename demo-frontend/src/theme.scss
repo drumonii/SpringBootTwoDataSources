@@ -1,0 +1,58 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$demo-app-primary: mat-palette($mat-green);
+$demo-app-accent: mat-palette($mat-amber);
+
+// The warn palette is optional (defaults to red).
+$demo-app-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$demo-app-theme: mat-light-theme($demo-app-primary, $demo-app-accent, $demo-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($demo-app-theme);
+
+// Variables for mixins
+$background: map-get($demo-app-theme, background);
+$body-background-color: mat-color($background, background);
+$primary: map-get($demo-app-theme, primary);
+$primary-color: mat-color($primary);
+
+// Import custom theme styles
+@import 'styles/footer';
+@import 'styles/header';
+@import 'styles/page-header';
+
+// Custom demo app theme
+@mixin demo-app-theme() {
+  .demo-app-background {
+    background: $body-background-color;
+  }
+
+  .section-header {
+    color: $dark-primary-text;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  // Include the theme mixins from the theme styles
+  @include footer-theme($demo-app-theme);
+  @include header-theme($demo-app-theme);
+  @include page-header-theme($demo-app-theme);
+}
+
+// Include custom demo app theme
+@include demo-app-theme();

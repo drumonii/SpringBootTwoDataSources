@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 
 import { of } from 'rxjs';
 
+import { PageHeaderComponent } from '@components/page-header.component';
+
 import { HomeModule } from './home.module';
 import { HomeView } from './home.view';
 import { HomeService } from './home.service';
@@ -31,9 +33,10 @@ describe('HomeComponent', () => {
   }));
 
   it('should show demo project overview', () => {
-    const projectOverview = fixture.debugElement.query(By.css('#project-overview'));
-    expect(projectOverview.nativeElement.textContent.trim())
-      .toBe('Spring Boot with Two DataSources Demonstration Project', 'project overview text');
+    const projectOverview = fixture.debugElement.query(By.directive(PageHeaderComponent));
+    const projectOverviewHeader = projectOverview.injector.get(PageHeaderComponent);
+    expect(projectOverviewHeader.pageHeader)
+      .toBe('Spring Boot with two DataSources Demonstration Project', 'project overview text');
 
     const projectDetails = fixture.debugElement.query(By.css('#project-details'));
     expect(projectDetails.nativeElement.textContent.trim())

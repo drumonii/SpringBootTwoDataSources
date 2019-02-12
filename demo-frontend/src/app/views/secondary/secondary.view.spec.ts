@@ -1,12 +1,14 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBar } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
 import { of } from 'rxjs';
 
 import { DataSourcePropertiesComponent } from '@components/data-source-properties.component';
 import { DatatableComponent } from '@components/datatable.component';
+import { PageHeaderComponent } from '@components/page-header.component';
 import { ValidationResponse } from '@models/validation-response';
 import { PaginatedResponse } from '@models/paginated-response';
 
@@ -46,6 +48,13 @@ describe('SecondaryView', () => {
     fixture.detectChanges();
   }));
 
+  it('should show the page header', () => {
+    const secondaryOverview = fixture.debugElement.query(By.directive(PageHeaderComponent));
+    const secondaryOverviewHeader = secondaryOverview.injector.get(PageHeaderComponent);
+    expect(secondaryOverviewHeader.pageHeader)
+      .toBe('Secondary DataSource', 'secondary overview text');
+  });
+
   it('should get the datasource properties', inject([SecondaryService], (secondaryService: SecondaryService) => {
     expect(fixture.debugElement.query(By.directive(DataSourcePropertiesComponent))).toBeTruthy('datasource props component');
     expect(secondaryService.getSecondaryDataSourceEnv).toHaveBeenCalled();
@@ -73,7 +82,7 @@ describe('SecondaryView', () => {
         expect(component.newSecondaryForm.valid).toBe(false);
       });
 
-      it('from server validated name', inject([SecondaryService], (secondaryService: SecondaryService) => {
+      it('from server validated name', inject([SecondaryService, MatSnackBar], (secondaryService: SecondaryService, snackBar: MatSnackBar) => {
         const validationResponse: ValidationResponse<SecondaryEntity> = {
           "errors": {
             "name": {
@@ -83,6 +92,7 @@ describe('SecondaryView', () => {
         };
 
         spyOn(secondaryService, 'saveSecondary').and.returnValue(of(validationResponse));
+        spyOn(snackBar, 'open');
 
         const name = component.newSecondaryForm.get('name');
         name.setValue('Hello World!');
@@ -98,13 +108,14 @@ describe('SecondaryView', () => {
         expect(validationFeedback.nativeElement.textContent.trim()).toBe('Name already exists');
         expect(component.newSecondaryForm.valid).toBe(false);
         expect(secondaryService.saveSecondary).toHaveBeenCalledWith({ name: 'Hello World!' });
+        expect(snackBar.open).not.toHaveBeenCalled();
       }));
 
     });
 
     describe('with valid form', () => {
 
-      it('from server validated name', inject([SecondaryService], (secondaryService: SecondaryService) => {
+      it('from server validated name', inject([SecondaryService, MatSnackBar], (secondaryService: SecondaryService, snackBar: MatSnackBar) => {
         const validationResponse: ValidationResponse<SecondaryEntity> = {
           "data": {
             "id": 32,
@@ -113,6 +124,7 @@ describe('SecondaryView', () => {
         };
 
         spyOn(secondaryService, 'saveSecondary').and.returnValue(of(validationResponse));
+        spyOn(snackBar, 'open');
 
         const name = component.newSecondaryForm.get('name');
         name.setValue('Hello World!');
@@ -126,6 +138,7 @@ describe('SecondaryView', () => {
 
         expect(fixture.debugElement.query(By.css('#name-validation-feedback'))).toBeFalsy('name validation feedback');
         expect(secondaryService.saveSecondary).toHaveBeenCalledWith({ name: 'Hello World!' });
+        expect(snackBar.open).toHaveBeenCalled();
         expect(secondaryService.getSecondary).toHaveBeenCalledWith({
           page: 0,
           size: 10,

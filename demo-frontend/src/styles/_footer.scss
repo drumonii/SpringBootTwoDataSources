@@ -1,0 +1,10 @@
+@mixin footer-theme($demo-app-theme) {
+  $primary: map-get($demo-app-theme, primary);
+  $primary-color: mat-color($primary);
+  $text-color: mat-color($primary, darker-contrast);
+
+  .demo-footer {
+    background: $primary-color;
+    color: $text-color;
+  }
+}

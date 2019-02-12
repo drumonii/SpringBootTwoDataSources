@@ -1,0 +1,12 @@
+@mixin header-theme($demo-app-theme) {
+  $primary: map-get($demo-app-theme, primary);
+  $primary-color: mat-color($primary);
+  $text-color: mat-color($primary, darker-contrast);
+  $border-bottom-color: mat-color($primary, 700);
+
+  .demo-header {
+    background: $primary-color;
+    color: $text-color;
+    border-bottom: 1px solid $border-bottom-color;
+  }
+}

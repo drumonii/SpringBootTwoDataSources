@@ -1,25 +1,27 @@
-<h3>
-  Secondary DataSource
-</h3>
+<app-page-header [pageHeader]="'Secondary DataSource'"></app-page-header>
 
-<app-data-source-properties [datasourceProperties$]="secondaryDatasourceProperties$"></app-data-source-properties>
+<div class="container">
+  <app-data-source-properties [datasourceProperties$]="secondaryDatasourceProperties$"></app-data-source-properties>
 
-<form id="new-secondary-form" [formGroup]="newSecondaryForm" (ngSubmit)="submitNewSecondary()">
-  <label for="name-input">Name</label>
-  <input id="name-input" type="text" formControlName="name">
-  <p id="invalid-name-feedback" *ngIf="newSecondaryForm.get('name').invalid && (newSecondaryForm.get('name').dirty || newSecondaryForm.get('name').touched)">
-    This field is required
-  </p>
-  <p id="name-validation-feedback" *ngIf="newSecondaryForm.hasError('name')">
-    {{newSecondaryForm.getError('name').message}}
-  </p>
-  <p>
-    <button id="new-secondary-btn" type="submit" [disabled]="newSecondaryForm.invalid">
+  <h4 class="section-header">New Secondary Entity</h4>
+
+  <form id="new-secondary-form" [formGroup]="newSecondaryForm" (ngSubmit)="submitNewSecondary()">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Name" formControlName="name">
+      <mat-error id="invalid-name-feedback" *ngIf="newSecondaryForm.get('name').invalid &&
+        (newSecondaryForm.get('name').dirty || newSecondaryForm.get('name').touched)">
+        This field is required
+      </mat-error>
+      <mat-error id="name-validation-feedback" *ngIf="newSecondaryForm.hasError('name')">
+        {{newSecondaryForm.getError('name').message}}
+      </mat-error>
+    </mat-form-field>
+    <button id="new-secondary-btn" mat-raised-button type="submit" [disabled]="newSecondaryForm.invalid">
       Save
     </button>
-  </p>
-</form>
+  </form>
 
-<app-datatable [data$]="data$" [isLoadingResults]="isLoadingResults" [resultsLength]="resultsLength"
- (getDataEvent)="getSecondary($event)">
-</app-datatable>
+  <app-datatable [data$]="data$" [isLoadingResults]="isLoadingResults" [resultsLength]="resultsLength"
+   (getDataEvent)="getSecondary($event)">
+  </app-datatable>
+</div>

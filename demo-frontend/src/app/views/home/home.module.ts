@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatListModule } from '@angular/material';
 
 import { HomeView } from './home.view';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeService } from './home.service';
+
+import { PageHeaderModule } from '@components/page-header.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +14,9 @@ import { HomeService } from './home.service';
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    MatListModule,
+    HomeRoutingModule,
+    PageHeaderModule
   ],
   providers: [
     HomeService
