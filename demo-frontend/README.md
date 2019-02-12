@@ -1,6 +1,6 @@
 # Spring Boot and Two DataSources Demo Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
 ## Development server
 
