@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
 import { Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { finalize, map } from 'rxjs/operators';
 
 import { DatasourceProperties } from '@models/datasource-properties';
 import { DatatableRequest } from '@models/datatable-request';
+import { NewEntityForm } from '@models/new-entity-form';
 
 import { SecondaryService } from './secondary.service';
 import { SecondaryEntity } from './secondary-entity';
@@ -20,15 +21,13 @@ export class SecondaryView implements OnInit {
 
   secondaryDatasourceProperties$: Observable<DatasourceProperties>;
 
-  newSecondaryForm = this.formBuilder.group({
-    name: ['', Validators.required]
-  });
+  errors: ValidationErrors;
 
   data$: Observable<SecondaryEntity[]>;
   resultsLength: number;
   isLoadingResults: boolean;
 
-  constructor(private secondaryService: SecondaryService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {}
+  constructor(private secondaryService: SecondaryService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.getSecondaryDataSourceProperties();
@@ -50,21 +49,18 @@ export class SecondaryView implements OnInit {
       );
   }
 
-  submitNewSecondary(): void {
-    if (this.newSecondaryForm.valid) {
-      this.secondaryService.saveSecondary({ name: this.newSecondaryForm.get('name').value })
-        .subscribe(response => {
-          if (response.errors) {
-            this.newSecondaryForm.setErrors(response.errors);
-          } else {
-            this.snackBar.open(`Successfully saved new Entity: '${response.data.name}'`, '', {
-              duration: 3000
-            });
-            this.newSecondaryForm.reset();
-            this.getSecondary({ page: 0, size: 10, sorts: ['name,asc'] });
-          }
-        });
-    }
+  submitNewSecondary(form: NewEntityForm): void {
+    this.secondaryService.saveSecondary(form)
+      .subscribe(response => {
+        if (response.errors) {
+          this.errors = response.errors;
+        } else {
+          this.snackBar.open(`Successfully saved new Entity: '${response.data.name}'`, '', {
+            duration: 3000
+          });
+          this.getSecondary({ page: 0, size: 10, sorts: ['name,asc'] });
+        }
+      });
   }
 
 }

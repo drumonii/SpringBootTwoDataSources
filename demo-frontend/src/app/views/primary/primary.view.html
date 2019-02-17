@@ -3,23 +3,7 @@
 <div class="container">
   <app-data-source-properties [datasourceProperties$]="primaryDatasourceProperties$"></app-data-source-properties>
 
-  <h4 class="section-header">Save New Entity</h4>
-
-  <form id="new-primary-form" [formGroup]="newPrimaryForm" (ngSubmit)="submitNewPrimary()">
-    <mat-form-field class="full-width">
-      <input matInput placeholder="Name" formControlName="name">
-      <mat-error id="invalid-name-feedback" *ngIf="newPrimaryForm.get('name').invalid &&
-        (newPrimaryForm.get('name').dirty || newPrimaryForm.get('name').touched)">
-        This field is required
-      </mat-error>
-      <mat-error id="name-validation-feedback" *ngIf="newPrimaryForm.hasError('name')">
-        {{newPrimaryForm.getError('name').message}}
-      </mat-error>
-    </mat-form-field>
-    <button id="new-primary-btn" mat-raised-button type="submit" [disabled]="newPrimaryForm.invalid">
-      Save
-    </button>
-  </form>
+  <app-new-entity [errors]="errors" (newEntityEvent)="submitNewPrimary($event)"></app-new-entity>
 
   <app-datatable [data$]="data$" [isLoadingResults]="isLoadingResults" [resultsLength]="resultsLength"
     (getDataEvent)="getPrimary($event)">

@@ -11,6 +11,7 @@ import { DatatableComponent } from '@components/datatable.component';
 import { PageHeaderComponent } from '@components/page-header.component';
 import { ValidationResponse } from '@models/validation-response';
 import { PaginatedResponse } from '@models/paginated-response';
+import { NewEntityForm } from '@models/new-entity-form';
 
 import { SecondaryModule } from './secondary.module';
 import { SecondaryView } from './secondary.view';
@@ -66,21 +67,19 @@ describe('SecondaryView', () => {
 
   describe('save new secondary', () => {
 
-    describe('with invalid form', () => {
+    const form: NewEntityForm = {
+      name: 'Hello World!'
+    };
 
-      it('from initial state', () => {
-        expect(component.newSecondaryForm.valid).toBe(false);
-      });
+    beforeEach(inject([MatSnackBar], (snackBar: MatSnackBar) => {
+      spyOn(snackBar, 'open');
+    }));
 
-      it('from empty name', () => {
-        const name = component.newSecondaryForm.get('name');
-        name.markAsTouched();
+    afterEach(inject([SecondaryService], (secondaryService: SecondaryService) => {
+      expect(secondaryService.saveSecondary).toHaveBeenCalledWith(form);
+    }));
 
-        fixture.detectChanges();
-
-        expect(fixture.debugElement.query(By.css('#invalid-name-feedback'))).toBeTruthy('invalid name feedback');
-        expect(component.newSecondaryForm.valid).toBe(false);
-      });
+    describe('with invalid secondary', () => {
 
       it('from server validated name', inject([SecondaryService, MatSnackBar], (secondaryService: SecondaryService, snackBar: MatSnackBar) => {
         const validationResponse: ValidationResponse<SecondaryEntity> = {
@@ -92,28 +91,16 @@ describe('SecondaryView', () => {
         };
 
         spyOn(secondaryService, 'saveSecondary').and.returnValue(of(validationResponse));
-        spyOn(snackBar, 'open');
 
-        const name = component.newSecondaryForm.get('name');
-        name.setValue('Hello World!');
-        name.markAsTouched();
+        component.submitNewSecondary(form);
 
-        fixture.detectChanges();
-
-        component.submitNewSecondary();
-
-        fixture.detectChanges();
-
-        const validationFeedback = fixture.debugElement.query(By.css('#name-validation-feedback'));
-        expect(validationFeedback.nativeElement.textContent.trim()).toBe('Name already exists');
-        expect(component.newSecondaryForm.valid).toBe(false);
-        expect(secondaryService.saveSecondary).toHaveBeenCalledWith({ name: 'Hello World!' });
         expect(snackBar.open).not.toHaveBeenCalled();
+        expect(component.errors).toEqual(validationResponse.errors);
       }));
 
     });
 
-    describe('with valid form', () => {
+    describe('with valid secondary', () => {
 
       it('from server validated name', inject([SecondaryService, MatSnackBar], (secondaryService: SecondaryService, snackBar: MatSnackBar) => {
         const validationResponse: ValidationResponse<SecondaryEntity> = {
@@ -124,27 +111,16 @@ describe('SecondaryView', () => {
         };
 
         spyOn(secondaryService, 'saveSecondary').and.returnValue(of(validationResponse));
-        spyOn(snackBar, 'open');
 
-        const name = component.newSecondaryForm.get('name');
-        name.setValue('Hello World!');
-        name.markAsTouched();
+        component.submitNewSecondary(form);
 
-        fixture.detectChanges();
-
-        component.submitNewSecondary();
-
-        // fixture.detectChanges(); // calling this oddly causes ExpressionChangedAfterItHasBeenCheckedError
-
-        expect(fixture.debugElement.query(By.css('#name-validation-feedback'))).toBeFalsy('name validation feedback');
-        expect(secondaryService.saveSecondary).toHaveBeenCalledWith({ name: 'Hello World!' });
         expect(snackBar.open).toHaveBeenCalled();
         expect(secondaryService.getSecondary).toHaveBeenCalledWith({
           page: 0,
           size: 10,
           sorts: ['name,asc']
         });
-        expect(name.value).toBeNull();
+        expect(component.errors).toBeUndefined();
       }));
 
     });

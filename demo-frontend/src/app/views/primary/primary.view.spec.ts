@@ -11,6 +11,7 @@ import { DatatableComponent } from '@components/datatable.component';
 import { PageHeaderComponent } from '@components/page-header.component';
 import { ValidationResponse } from '@models/validation-response';
 import { PaginatedResponse } from '@models/paginated-response';
+import { NewEntityForm } from '@models/new-entity-form';
 
 import { PrimaryModule } from './primary.module';
 import { PrimaryView } from './primary.view';
@@ -64,23 +65,21 @@ describe('PrimaryView', () => {
     expect(fixture.debugElement.query(By.directive(DatatableComponent))).toBeTruthy('datatable component');
   });
 
-  describe('save new primary', () => {
+  describe('save new secondary', () => {
 
-    describe('with invalid form', () => {
+    const form: NewEntityForm = {
+      name: 'Hello World!'
+    };
 
-      it('from initial state', () => {
-        expect(component.newPrimaryForm.valid).toBe(false);
-      });
+    beforeEach(inject([MatSnackBar], (snackBar: MatSnackBar) => {
+      spyOn(snackBar, 'open');
+    }));
 
-      it('from empty name', () => {
-        const name = component.newPrimaryForm.get('name');
-        name.markAsTouched();
+    afterEach(inject([PrimaryService], (primaryService: PrimaryService) => {
+      expect(primaryService.savePrimary).toHaveBeenCalledWith(form);
+    }));
 
-        fixture.detectChanges();
-
-        expect(fixture.debugElement.query(By.css('#invalid-name-feedback'))).toBeTruthy('invalid name feedback');
-        expect(component.newPrimaryForm.valid).toBe(false);
-      });
+    describe('with invalid secondary', () => {
 
       it('from server validated name', inject([PrimaryService, MatSnackBar], (primaryService: PrimaryService, snackBar: MatSnackBar) => {
         const validationResponse: ValidationResponse<PrimaryEntity> = {
@@ -92,28 +91,16 @@ describe('PrimaryView', () => {
         };
 
         spyOn(primaryService, 'savePrimary').and.returnValue(of(validationResponse));
-        spyOn(snackBar, 'open');
 
-        const name = component.newPrimaryForm.get('name');
-        name.setValue('Hello World!');
-        name.markAsTouched();
+        component.submitNewPrimary(form);
 
-        fixture.detectChanges();
-
-        component.submitNewPrimary();
-
-        fixture.detectChanges();
-
-        const validationFeedback = fixture.debugElement.query(By.css('#name-validation-feedback'));
-        expect(validationFeedback.nativeElement.textContent.trim()).toBe('Name already exists');
-        expect(component.newPrimaryForm.valid).toBe(false);
-        expect(primaryService.savePrimary).toHaveBeenCalledWith({ name: 'Hello World!' });
         expect(snackBar.open).not.toHaveBeenCalled();
+        expect(component.errors).toEqual(validationResponse.errors);
       }));
 
     });
 
-    describe('with valid form', () => {
+    describe('with valid secondary', () => {
 
       it('from server validated name', inject([PrimaryService, MatSnackBar], (primaryService: PrimaryService, snackBar: MatSnackBar) => {
         const validationResponse: ValidationResponse<PrimaryEntity> = {
@@ -124,27 +111,16 @@ describe('PrimaryView', () => {
         };
 
         spyOn(primaryService, 'savePrimary').and.returnValue(of(validationResponse));
-        spyOn(snackBar, 'open');
 
-        const name = component.newPrimaryForm.get('name');
-        name.setValue('Hello World!');
-        name.markAsTouched();
+        component.submitNewPrimary(form);
 
-        fixture.detectChanges();
-
-        component.submitNewPrimary();
-
-        // fixture.detectChanges(); // calling this oddly causes ExpressionChangedAfterItHasBeenCheckedError
-
-        expect(fixture.debugElement.query(By.css('#name-validation-feedback'))).toBeFalsy('name validation feedback');
-        expect(primaryService.savePrimary).toHaveBeenCalledWith({ name: 'Hello World!' });
         expect(snackBar.open).toHaveBeenCalled();
         expect(primaryService.getPrimary).toHaveBeenCalledWith({
           page: 0,
           size: 10,
           sorts: ['name,asc']
         });
-        expect(name.value).toBeNull();
+        expect(component.errors).toBeUndefined();
       }));
 
     });
