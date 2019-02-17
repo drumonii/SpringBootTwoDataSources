@@ -3,8 +3,10 @@
 <mat-progress-bar class="example-margin" [mode]="'indeterminate'" *ngIf="isLoadingResults">
 </mat-progress-bar>
 
-<div class="datatable-container mat-elevation-z6">
-  <table class="datatable" mat-table matSort matSortActive="name" matSortDisableClear matSortDirection="asc" [dataSource]="data$">
+<div class="mat-elevation-z6">
+  <table id="saved-entities-datatable"
+    mat-table matSort matSortActive="name" matSortDisableClear matSortDirection="asc"
+    [dataSource]="data$">
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
