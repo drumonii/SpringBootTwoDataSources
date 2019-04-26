@@ -8,11 +8,11 @@ export class AppPage {
     return browser.get(this.destination) as Promise<any>;
   }
 
-  getPageHeader() {
+  async getPageHeader(): Promise<string> {
     return element(by.css('#page-header-text')).getText();
   }
 
-  async expectNoErrorLogs() {
+  async expectNoErrorLogs(): Promise<void> {
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
     expect(logs).not.toContain(jasmine.objectContaining({
       level: logging.Level.SEVERE,

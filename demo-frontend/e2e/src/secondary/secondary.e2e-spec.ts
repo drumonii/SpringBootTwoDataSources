@@ -3,41 +3,41 @@ import { SecondaryPage } from './secondary.po';
 describe('Secondary DataSource page', () => {
   let page: SecondaryPage;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     page = new SecondaryPage();
-    page.navigateTo();
+    await page.navigateTo();
   });
 
   afterEach(async () => {
-    page.expectNoErrorLogs();
+    await page.expectNoErrorLogs();
   });
 
-  it('should show the page header', () => {
-    expect(page.getPageHeader()).toBe('Secondary DataSource');
+  it('should show the page header', async () => {
+    expect(await page.getPageHeader()).toBe('Secondary DataSource');
   });
 
-  it('should show the datasource config properties table', () => {
-    expect(page.getConfigPropsTable().isPresent()).toBe(true);
+  it('should show the datasource config properties table', async () => {
+    expect(await page.getConfigPropsTable().isPresent()).toBe(true);
   });
 
-  it('should save new primary entity', () => {
+  it('should save new primary entity', async () => {
     const form = page.getNewEntityForm();
 
     const name = Math.random().toString(36);
 
-    form.getNameInput().sendKeys(name);
-    form.getSubmitBtn().click();
+    await form.getNameInput().sendKeys(name);
+    await form.getSubmitBtn().click();
 
-    form.getNameInput().clear();
+    await form.getNameInput().clear();
 
     // try to create a duplicate with same name
-    form.getNameInput().sendKeys(name);
-    form.getSubmitBtn().click();
-    expect(form.getNameValidationFeedback().isPresent()).toBe(true);
+    await form.getNameInput().sendKeys(name);
+    await form.getSubmitBtn().click();
+    expect(await form.getNameValidationFeedback().isPresent()).toBe(true);
   });
 
-  it('should show saved primary entities', () => {
-    expect(page.getSavedEntities().isPresent()).toBe(true);
+  it('should show saved primary entities', async () => {
+    expect(await page.getSavedEntities().isPresent()).toBe(true);
   });
 
 });

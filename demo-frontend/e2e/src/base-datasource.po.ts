@@ -1,18 +1,18 @@
-import { by, element } from 'protractor';
+import { by, element, ElementFinder } from 'protractor';
 
 import { AppPage } from './app.po';
 
 class NewEntityForm {
 
-  getNameInput() {
+  getNameInput(): ElementFinder {
     return element(by.css('#name-input'));
   }
 
-  getNameValidationFeedback() {
+  getNameValidationFeedback(): ElementFinder {
     return element(by.css('#name-validation-feedback'));
   }
 
-  getSubmitBtn() {
+  getSubmitBtn(): ElementFinder {
     return element(by.css('#new-entity-btn'));
   }
 
@@ -24,15 +24,15 @@ export class BaseDatasourcePage extends AppPage {
     super(destination);
   }
 
-  getConfigPropsTable() {
+  getConfigPropsTable(): ElementFinder {
     return element(by.css('#config-props-table'));
   }
 
-  getNewEntityForm() {
+  getNewEntityForm(): NewEntityForm {
     return new NewEntityForm();
   }
 
-  getSavedEntities() {
+  getSavedEntities(): ElementFinder {
     return element(by.css('#saved-entities-datatable'));
   }
 
