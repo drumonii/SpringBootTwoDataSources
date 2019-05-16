@@ -47,7 +47,6 @@ public class PrimaryDataSourceConfig {
 
 	@Bean(name = PRIMARY_DATASOURCE)
 	@Primary
-	@ConfigurationProperties(prefix = PRIMARY_DATASOURCE)
 	public DataSource primaryDataSource() {
 		return primaryDataSourceProperties().initializeDataSourceBuilder().build();
 	}
