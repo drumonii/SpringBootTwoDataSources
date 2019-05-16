@@ -1,7 +1,17 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 
-import { merge, Observable, of } from 'rxjs';
+import { merge, Observable, of, Subscription } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
 import { DatatableRequest } from '@models/datatable-request';
@@ -13,7 +23,7 @@ import { BaseEntity } from '@models/base-entity';
   styleUrls: ['./datatable.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatatableComponent implements OnInit, AfterViewInit {
+export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input()
   data$: Observable<BaseEntity[]>;
@@ -35,13 +45,15 @@ export class DatatableComponent implements OnInit, AfterViewInit {
   @Output()
   getDataEvent = new EventEmitter<DatatableRequest>(true); // must be true or else ExpressionChangedAfterItHasBeenCheckedError
 
+  private subscription = new Subscription();
+
   constructor() { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit(): void {
-    merge(this.sort.sortChange, this.paginator.page)
+    this.subscription.add(merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -53,7 +65,11 @@ export class DatatableComponent implements OnInit, AfterViewInit {
           return of(datatableRequest);
         })
       )
-      .subscribe(datatableRequest => this.getDataEvent.emit(datatableRequest));
+      .subscribe(datatableRequest => this.getDataEvent.emit(datatableRequest)));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

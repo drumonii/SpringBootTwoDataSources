@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
 import { DatasourceProperties } from '@models/datasource-properties';
@@ -17,7 +17,7 @@ import { PrimaryEntity } from './primary-entity';
   templateUrl: './primary.view.html',
   styleUrls: ['./primary.view.scss']
 })
-export class PrimaryView implements OnInit {
+export class PrimaryView implements OnInit, OnDestroy {
 
   primaryDatasourceProperties$: Observable<DatasourceProperties>;
 
@@ -26,6 +26,8 @@ export class PrimaryView implements OnInit {
   data$: Observable<PrimaryEntity[]>;
   resultsLength: number;
   isLoadingResults: boolean;
+
+  private subscription = new Subscription();
 
   constructor(private primaryService: PrimaryService, private snackBar: MatSnackBar) {}
 
@@ -50,7 +52,7 @@ export class PrimaryView implements OnInit {
   }
 
   submitNewPrimary(form: NewEntityForm): void {
-    this.primaryService.savePrimary(form)
+    this.subscription.add(this.primaryService.savePrimary(form)
       .subscribe(response => {
         if (response.errors) {
           this.errors = response.errors;
@@ -60,7 +62,11 @@ export class PrimaryView implements OnInit {
           });
           this.getPrimary({ page: 0, size: 10, sorts: ['name,asc'] });
         }
-      });
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

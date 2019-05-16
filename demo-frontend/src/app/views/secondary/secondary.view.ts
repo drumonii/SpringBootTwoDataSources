@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
 import { DatasourceProperties } from '@models/datasource-properties';
@@ -17,7 +17,7 @@ import { SecondaryEntity } from './secondary-entity';
   templateUrl: './secondary.view.html',
   styleUrls: ['./secondary.view.scss']
 })
-export class SecondaryView implements OnInit {
+export class SecondaryView implements OnInit, OnDestroy {
 
   secondaryDatasourceProperties$: Observable<DatasourceProperties>;
 
@@ -26,6 +26,8 @@ export class SecondaryView implements OnInit {
   data$: Observable<SecondaryEntity[]>;
   resultsLength: number;
   isLoadingResults: boolean;
+
+  private subscription = new Subscription();
 
   constructor(private secondaryService: SecondaryService, private snackBar: MatSnackBar) {}
 
@@ -50,7 +52,7 @@ export class SecondaryView implements OnInit {
   }
 
   submitNewSecondary(form: NewEntityForm): void {
-    this.secondaryService.saveSecondary(form)
+    this.subscription.add(this.secondaryService.saveSecondary(form)
       .subscribe(response => {
         if (response.errors) {
           this.errors = response.errors;
@@ -60,7 +62,11 @@ export class SecondaryView implements OnInit {
           });
           this.getSecondary({ page: 0, size: 10, sorts: ['name,asc'] });
         }
-      });
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
