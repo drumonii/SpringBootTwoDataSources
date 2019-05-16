@@ -75,5 +75,19 @@ describe('NewEntityComponent', () => {
 
   describe('with valid form', () => {
 
+    it('from server validated name', () => {
+      const name = component.newEntityForm.get('name');
+      name.setValue('Hello World!');
+      name.markAsTouched();
+
+      fixture.detectChanges();
+
+      component.submitNewEntity();
+
+      expect(fixture.debugElement.query(By.css('#name-validation-feedback'))).toBeFalsy();
+      expect(component.newEntityForm.valid).toBe(true);
+      expect(component.newEntityEvent.emit).toHaveBeenCalledWith({ name: 'Hello World!' })
+    });
+
   });
 });
