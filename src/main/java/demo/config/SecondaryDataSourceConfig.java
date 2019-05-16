@@ -43,7 +43,6 @@ public class SecondaryDataSourceConfig {
 	}
 
 	@Bean(name = SECONDARY_DATASOURCE)
-	@ConfigurationProperties(prefix = SECONDARY_DATASOURCE)
 	public DataSource secondaryDataSource() {
 		return secondaryDataSourceProperties().initializeDataSourceBuilder().build();
 	}
