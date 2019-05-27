@@ -1,6 +1,14 @@
 spring:
   # Internalization
   messages.basename: i18n/messages
+  # MVC
+  mvc:
+    formcontent:
+      filter:
+        enabled: false
+    hiddenmethod:
+      filter:
+        enabled: false
   # JPA
   jpa:
     open-in-view: false
