@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatListModule } from '@angular/material';
+import { MatListModule } from '@angular/material/list';
 
 import { HomeView } from './home.view';
 import { HomeRoutingModule } from './home-routing.module';

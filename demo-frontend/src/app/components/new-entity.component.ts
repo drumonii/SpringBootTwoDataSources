@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroupDirective, NgForm, ValidationErrors,
 
 import { NewEntityForm } from '@models/new-entity-form';
 
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-new-entity',

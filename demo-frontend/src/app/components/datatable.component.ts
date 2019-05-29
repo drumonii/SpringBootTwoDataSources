@@ -9,7 +9,8 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
