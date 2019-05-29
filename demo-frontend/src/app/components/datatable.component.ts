@@ -36,10 +36,10 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   displayedColumns = [ 'name' ];
 
-  @ViewChild(MatPaginator)
+  @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
 
-  @ViewChild(MatSort)
+  @ViewChild(MatSort, { static: true })
   sort: MatSort;
 
   @Output()
