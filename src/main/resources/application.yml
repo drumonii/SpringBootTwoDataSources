@@ -29,6 +29,11 @@ management:
       exposure:
         include: env
 
+# Server
+server:
+  compression:
+    enabled: true
+
 # Primary datasource properties
 primary:
   datasource:
