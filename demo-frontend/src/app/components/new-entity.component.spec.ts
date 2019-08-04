@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ValidationErrors } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { NewEntityModule } from '@components/new-entity.module';
@@ -38,6 +37,7 @@ describe('NewEntityComponent', () => {
 
     it('from empty name', () => {
       const name = component.newEntityForm.get('name');
+      name.setValue('');
       name.markAsTouched();
 
       fixture.detectChanges();
@@ -53,15 +53,13 @@ describe('NewEntityComponent', () => {
 
       fixture.detectChanges();
 
-      component.submitNewEntity();
+      submitNewEntity();
 
-      const validationResponse: ValidationErrors = {
+      component.errors = {
         "name": {
           "message": "Name already exists"
         }
       };
-
-      component.errors = validationResponse;
 
       fixture.detectChanges();
 
@@ -82,7 +80,9 @@ describe('NewEntityComponent', () => {
 
       fixture.detectChanges();
 
-      component.submitNewEntity();
+      submitNewEntity();
+
+      fixture.detectChanges();
 
       expect(fixture.debugElement.query(By.css('#name-validation-feedback'))).toBeFalsy();
       expect(component.newEntityForm.valid).toBe(true);
@@ -90,4 +90,9 @@ describe('NewEntityComponent', () => {
     });
 
   });
+
+  function submitNewEntity() {
+    const submitBtn = fixture.debugElement.query(By.css('#new-entity-btn'));
+    submitBtn.nativeElement.click();
+  }
 });

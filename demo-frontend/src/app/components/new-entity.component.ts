@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 
 import { NewEntityForm } from '@models/new-entity-form';
@@ -8,7 +8,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 @Component({
   selector: 'app-new-entity',
   templateUrl: './new-entity.component.html',
-  styleUrls: ['./new-entity.component.scss']
+  styleUrls: ['./new-entity.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewEntityComponent implements OnInit {
 
