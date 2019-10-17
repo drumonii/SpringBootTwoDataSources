@@ -2,14 +2,14 @@ package demo.model.secondary.builder;
 
 import demo.form.secondary.SecondaryForm;
 import demo.model.secondary.SecondaryModel;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SecondaryModelBuilderTest {
+class SecondaryModelBuilderTest {
 
 	@Test
-	public void buildsSecondaryModel() {
+	void buildsSecondaryModel() {
 		SecondaryModel secondaryModel = new SecondaryModelBuilder()
 				.withName("Test")
 				.build();
@@ -18,7 +18,7 @@ public class SecondaryModelBuilderTest {
 	}
 
 	@Test
-	public void buildsSecondaryModelFromSecondaryForm() {
+	void buildsSecondaryModelFromSecondaryForm() {
 		SecondaryForm form = new SecondaryForm();
 		form.setName("Test");
 

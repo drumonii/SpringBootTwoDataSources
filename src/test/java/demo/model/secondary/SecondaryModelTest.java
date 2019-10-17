@@ -1,8 +1,7 @@
 package demo.model.secondary;
 
 import demo.model.secondary.builder.SecondaryModelBuilder;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
@@ -15,15 +14,14 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
-@RunWith(SpringRunner.class)
 @JsonTest
-public class SecondaryModelTest {
+class SecondaryModelTest {
 
     @Autowired
     private JacksonTester<SecondaryModel> jacksonTester;
 
     @Test
-    public void serializesIntoJson() {
+    void serializesIntoJson() {
         SecondaryModel secondaryModel = new SecondaryModelBuilder()
                 .withName("Hello World")
                 .build();
@@ -41,7 +39,7 @@ public class SecondaryModelTest {
     }
 
     @Test
-    public void deserializesFromJson() {
+    void deserializesFromJson() {
         String json =
                 "{" +
                 "  \"id\": 2381652," +

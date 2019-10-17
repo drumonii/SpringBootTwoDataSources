@@ -5,7 +5,7 @@ import demo.model.primary.PrimaryModel;
 import demo.model.primary.builder.PrimaryModelBuilder;
 import demo.repository.primary.PrimaryRepository;
 import demo.rest.AbstractRestControllerTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
@@ -14,29 +14,29 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class PrimaryRestControllerTest extends AbstractRestControllerTest {
+class PrimaryRestControllerTest extends AbstractRestControllerTest {
 
 	@Autowired
 	private PrimaryRepository primaryRepository;
 
 	@Test
-	public void getPrimary() throws Exception {
+	void getPrimary() throws Exception {
 		mockMvc.perform(get("/api/primary"))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.content").isArray())
 				.andExpect(jsonPath("$.pageable").isMap());
 	}
 
 	@Test
-	public void savePrimaryWithFormErrors() throws Exception {
+	void savePrimaryWithFormErrors() throws Exception {
 		PrimaryForm form = new PrimaryForm();
 
 		mockMvc.perform(post("/api/primary")
 				.content(objectMapper.writeValueAsString(form))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.errors").exists())
 				.andExpect(jsonPath("$.errors.name").exists())
 				.andExpect(jsonPath("$.errors.name.message",
@@ -44,7 +44,7 @@ public class PrimaryRestControllerTest extends AbstractRestControllerTest {
 	}
 
 	@Test
-	public void savePrimary() throws Exception {
+	void savePrimary() throws Exception {
 		PrimaryForm form = new PrimaryForm();
 		form.setName("Unique Name!");
 
@@ -52,7 +52,7 @@ public class PrimaryRestControllerTest extends AbstractRestControllerTest {
 				.content(objectMapper.writeValueAsString(form))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.data").exists())
 				.andExpect(jsonPath("$.data.id").isNumber())
 				.andExpect(jsonPath("$.data.name", is(form.getName())));
@@ -60,7 +60,7 @@ public class PrimaryRestControllerTest extends AbstractRestControllerTest {
 	}
 
 	@Test
-	public void savePrimaryWithExisting() throws Exception {
+	void savePrimaryWithExisting() throws Exception {
 		PrimaryModel primaryModel = primaryRepository.save(new PrimaryModelBuilder()
 				.withName("Existing name!")
 				.build());
@@ -72,7 +72,7 @@ public class PrimaryRestControllerTest extends AbstractRestControllerTest {
 				.content(objectMapper.writeValueAsString(form))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.errors").exists())
 				.andExpect(jsonPath("$.errors.name").exists())
 				.andExpect(jsonPath("$.errors.name.message",

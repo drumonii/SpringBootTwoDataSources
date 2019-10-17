@@ -45,7 +45,6 @@ primary:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
         show_sql: true
         format_sql: true
         generate_statistics: true
@@ -66,7 +65,6 @@ secondary:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
         show_sql: false
         format_sql: false
         generate_statistics: false

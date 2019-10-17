@@ -1,29 +1,26 @@
 package demo.model.primary;
 
 import demo.model.primary.builder.PrimaryModelBuilder;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
 import org.springframework.boot.test.json.ObjectContent;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
-@RunWith(SpringRunner.class)
 @JsonTest
-public class PrimaryModelTest {
+class PrimaryModelTest {
 
     @Autowired
     private JacksonTester<PrimaryModel> jacksonTester;
 
     @Test
-    public void serializesIntoJson() {
+    void serializesIntoJson() {
         PrimaryModel primaryModel = new PrimaryModelBuilder()
                 .withName("Hello World")
                 .build();
@@ -41,7 +38,7 @@ public class PrimaryModelTest {
     }
 
     @Test
-    public void deserializesFromJson() {
+    void deserializesFromJson() {
         String json =
                 "{" +
                 "  \"id\": 2381652," +
