@@ -23,7 +23,7 @@ public class SecondaryRestControllerTest extends AbstractRestControllerTest {
 	public void getSecondary() throws Exception {
 		mockMvc.perform(get("/api/secondary"))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.content").isArray())
 				.andExpect(jsonPath("$.pageable").isMap());
 	}
@@ -36,7 +36,7 @@ public class SecondaryRestControllerTest extends AbstractRestControllerTest {
 				.content(objectMapper.writeValueAsString(form))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.errors").exists())
 				.andExpect(jsonPath("$.errors.name").exists())
 				.andExpect(jsonPath("$.errors.name.message",
@@ -52,7 +52,7 @@ public class SecondaryRestControllerTest extends AbstractRestControllerTest {
 				.content(objectMapper.writeValueAsString(form))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.data").exists())
 				.andExpect(jsonPath("$.data.id").isNumber())
 				.andExpect(jsonPath("$.data.name", is(form.getName())));
@@ -72,7 +72,7 @@ public class SecondaryRestControllerTest extends AbstractRestControllerTest {
 				.content(objectMapper.writeValueAsString(form))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.errors").exists())
 				.andExpect(jsonPath("$.errors.name").exists())
 				.andExpect(jsonPath("$.errors.name.message",
