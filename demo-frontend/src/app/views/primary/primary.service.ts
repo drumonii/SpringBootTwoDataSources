@@ -55,7 +55,6 @@ export class PrimaryService {
     return {
       jdbcUrl: appConfigProperties['primary.datasource.url'].value,
       username: appConfigProperties['primary.datasource.username'].value,
-      dialect: appConfigProperties['primary.jpa.properties.hibernate.dialect'].value,
       flywayPath: appConfigProperties['primary.flyway.location'].value,
       showSql: appConfigProperties['primary.jpa.properties.hibernate.show_sql'].value,
       showStats: appConfigProperties['primary.jpa.properties.hibernate.generate_statistics'].value,

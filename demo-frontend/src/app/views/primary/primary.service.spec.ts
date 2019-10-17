@@ -49,10 +49,6 @@ describe('PrimaryService', () => {
                 "value": "classpath:db/migration/primary",
                 "origin": "class path resource [application.yml]:27:15"
               },
-              "primary.jpa.properties.hibernate.dialect": {
-                "value": "org.hibernate.dialect.H2Dialect",
-                "origin": "class path resource [application.yml]:31:18"
-              },
               "primary.jpa.properties.hibernate.show_sql": {
                 "value": true,
                 "origin": "class path resource [application.yml]:32:19"
@@ -94,7 +90,6 @@ describe('PrimaryService', () => {
         expect(datasourceProperties).toEqual({
           jdbcUrl: 'jdbc:h2:mem:primary',
           username: 'sa',
-          dialect: 'org.hibernate.dialect.H2Dialect',
           flywayPath: 'classpath:db/migration/primary',
           showSql: true,
           showStats: true

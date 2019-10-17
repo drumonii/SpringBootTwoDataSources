@@ -16,7 +16,6 @@ describe('DataSourcePropertiesComponent', () => {
   const datasourceProperties: DatasourceProperties = {
     jdbcUrl: 'jdbc:h2',
     username: 'jdbc_username',
-    dialect: 'H2Dialect',
     flywayPath: 'db/migration/primary',
     showSql: true,
     showStats: true
@@ -43,16 +42,17 @@ describe('DataSourcePropertiesComponent', () => {
     expect(configPropsTable).toBeTruthy('config props table');
 
     const configPropsTableHeaders = configPropsTable.queryAll(By.css('th'));
-    expect(configPropsTableHeaders.length).toBe(6, 'number of headers');
-    expect(configPropsTableHeaders[0].nativeElement.textContent.trim()).toBe('URL');
-    expect(configPropsTableHeaders[1].nativeElement.textContent.trim()).toBe('Username');
-    expect(configPropsTableHeaders[2].nativeElement.textContent.trim()).toBe('Dialect');
-    expect(configPropsTableHeaders[3].nativeElement.textContent.trim()).toBe('Flyway');
-    expect(configPropsTableHeaders[4].nativeElement.textContent.trim()).toBe('Show SQL');
-    expect(configPropsTableHeaders[5].nativeElement.textContent.trim()).toBe('Statistics');
+    expect(configPropsTableHeaders.length).toBe(5, 'number of headers');
+
+    let i = 0;
+    expect(configPropsTableHeaders[i++].nativeElement.textContent.trim()).toBe('URL');
+    expect(configPropsTableHeaders[i++].nativeElement.textContent.trim()).toBe('Username');
+    expect(configPropsTableHeaders[i++].nativeElement.textContent.trim()).toBe('Flyway');
+    expect(configPropsTableHeaders[i++].nativeElement.textContent.trim()).toBe('Show SQL');
+    expect(configPropsTableHeaders[i++].nativeElement.textContent.trim()).toBe('Statistics');
 
     const configPropTableLoadingDatas = configPropsTable.queryAll(By.css('td'));
-    expect(configPropTableLoadingDatas.length).toBe(6, 'number of table data');
+    expect(configPropTableLoadingDatas.length).toBe(5, 'number of table data');
     for (const configPropTableLoadingData of configPropTableLoadingDatas) {
       expect(configPropTableLoadingData.nativeElement.textContent.trim()).toBe('...');
     }
@@ -61,12 +61,13 @@ describe('DataSourcePropertiesComponent', () => {
     fixture.detectChanges();
 
     const configPropTableDatas = configPropsTable.queryAll(By.css('td'));
-    expect(configPropTableDatas.length).toBe(6, 'number of table data');
-    expect(configPropTableDatas[0].nativeElement.textContent.trim()).toBe(datasourceProperties.jdbcUrl);
-    expect(configPropTableDatas[1].nativeElement.textContent.trim()).toBe(datasourceProperties.username);
-    expect(configPropTableDatas[2].nativeElement.textContent.trim()).toBe(datasourceProperties.dialect);
-    expect(configPropTableDatas[3].nativeElement.textContent.trim()).toBe(datasourceProperties.flywayPath);
-    expect(configPropTableDatas[4].nativeElement.textContent.trim()).toBe(datasourceProperties.showSql + '');
-    expect(configPropTableDatas[5].nativeElement.textContent.trim()).toBe(datasourceProperties.showStats + '');
+    expect(configPropTableDatas.length).toBe(5, 'number of table data');
+
+    i = 0;
+    expect(configPropTableDatas[i++].nativeElement.textContent.trim()).toBe(datasourceProperties.jdbcUrl);
+    expect(configPropTableDatas[i++].nativeElement.textContent.trim()).toBe(datasourceProperties.username);
+    expect(configPropTableDatas[i++].nativeElement.textContent.trim()).toBe(datasourceProperties.flywayPath);
+    expect(configPropTableDatas[i++].nativeElement.textContent.trim()).toBe(datasourceProperties.showSql + '');
+    expect(configPropTableDatas[i++].nativeElement.textContent.trim()).toBe(datasourceProperties.showStats + '');
   }));
 });

@@ -49,10 +49,6 @@ describe('SecondaryService', () => {
                 "value": "classpath:db/migration/secondary",
                 "origin": "class path resource [application.yml]:48:15"
               },
-              "secondary.jpa.properties.hibernate.dialect": {
-                "value": "org.hibernate.dialect.H2Dialect",
-                "origin": "class path resource [application.yml]:52:18"
-              },
               "secondary.jpa.properties.hibernate.show_sql": {
                 "value": false,
                 "origin": "class path resource [application.yml]:53:19"
@@ -94,7 +90,6 @@ describe('SecondaryService', () => {
         expect(datasourceProperties).toEqual({
           jdbcUrl: 'jdbc:h2:mem:secondary',
           username: 'sa',
-          dialect: 'org.hibernate.dialect.H2Dialect',
           flywayPath: 'classpath:db/migration/secondary',
           showSql: false,
           showStats: false

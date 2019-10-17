@@ -55,7 +55,6 @@ export class SecondaryService {
     return {
       jdbcUrl: appConfigProperties['secondary.datasource.url'].value,
       username: appConfigProperties['secondary.datasource.username'].value,
-      dialect: appConfigProperties['secondary.jpa.properties.hibernate.dialect'].value,
       flywayPath: appConfigProperties['secondary.flyway.location'].value,
       showSql: appConfigProperties['secondary.jpa.properties.hibernate.show_sql'].value,
       showStats: appConfigProperties['secondary.jpa.properties.hibernate.generate_statistics'].value,
