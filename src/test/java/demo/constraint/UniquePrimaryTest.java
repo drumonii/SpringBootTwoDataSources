@@ -4,11 +4,11 @@ import demo.form.primary.PrimaryForm;
 import demo.model.primary.PrimaryModel;
 import demo.repository.primary.PrimaryRepository;
 import org.hibernate.validator.HibernateValidator;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -20,16 +20,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class UniquePrimaryTest {
+@ExtendWith(MockitoExtension.class)
+class UniquePrimaryTest {
 
 	private LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 
 	@Mock
 	private PrimaryRepository primaryRepository;
 
-	@Before
-	public void before() {
+	@BeforeEach
+	void before() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.refresh();
 
@@ -42,7 +42,7 @@ public class UniquePrimaryTest {
 	}
 
 	@Test
-	public void uniquePrimaryModel() {
+	void uniquePrimaryModel() {
 		PrimaryForm form = new PrimaryForm();
 		form.setName("Test");
 
@@ -53,7 +53,7 @@ public class UniquePrimaryTest {
 	}
 
 	@Test
-	public void nonUniquePrimaryModel() {
+	void nonUniquePrimaryModel() {
 		PrimaryForm form = new PrimaryForm();
 		form.setName("Test");
 

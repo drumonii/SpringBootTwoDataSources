@@ -2,14 +2,14 @@ package demo.model.primary.builder;
 
 import demo.form.primary.PrimaryForm;
 import demo.model.primary.PrimaryModel;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PrimaryModelBuilderTest {
+class PrimaryModelBuilderTest {
 
 	@Test
-	public void buildsPrimaryModel() {
+	void buildsPrimaryModel() {
 		PrimaryModel primaryModel = new PrimaryModelBuilder()
 				.withName("Test")
 				.build();
@@ -18,7 +18,7 @@ public class PrimaryModelBuilderTest {
 	}
 
 	@Test
-	public void buildsPrimaryModelFromPrimaryForm() {
+	void buildsPrimaryModelFromPrimaryForm() {
 		PrimaryForm form = new PrimaryForm();
 		form.setName("Test");
 
