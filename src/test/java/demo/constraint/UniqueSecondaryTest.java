@@ -3,51 +3,27 @@ package demo.constraint;
 import demo.form.secondary.SecondaryForm;
 import demo.model.secondary.SecondaryModel;
 import demo.repository.secondary.SecondaryRepository;
-import org.aspectj.lang.annotation.Before;
-import org.hibernate.validator.HibernateValidator;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
 
-@ExtendWith(MockitoExtension.class)
-class UniqueSecondaryTest {
+class UniqueSecondaryTest extends AbstractConstraintValidatorTest {
 
-	private LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-
-	@Mock
+	@MockBean
 	private SecondaryRepository secondaryRepository;
-
-	@BeforeEach
-	void before() {
-		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.refresh();
-
-		ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
-		beanFactory.registerSingleton(SecondaryRepository.class.getCanonicalName(), secondaryRepository);
-
-		validator.setApplicationContext(context);
-		validator.setProviderClass(HibernateValidator.class);
-		validator.afterPropertiesSet();
-	}
 
 	@Test
 	void uniqueSecondaryModel() {
 		SecondaryForm form = new SecondaryForm();
 		form.setName("Test");
 
-		when(secondaryRepository.findByNameIgnoreCase(eq(form.getName()))).thenReturn(null);
+		given(secondaryRepository.findByNameIgnoreCase(eq(form.getName()))).willReturn(null);
 
 		Set<ConstraintViolation<SecondaryForm>> constraintViolations = validator.validate(form);
 		assertThat(constraintViolations).isEmpty();
@@ -58,7 +34,7 @@ class UniqueSecondaryTest {
 		SecondaryForm form = new SecondaryForm();
 		form.setName("Test");
 
-		when(secondaryRepository.findByNameIgnoreCase(eq(form.getName()))).thenReturn(new SecondaryModel());
+		given(secondaryRepository.findByNameIgnoreCase(eq(form.getName()))).willReturn(new SecondaryModel());
 
 		Set<ConstraintViolation<SecondaryForm>> constraintViolations = validator.validate(form);
 		assertThat(constraintViolations).hasSize(1);
