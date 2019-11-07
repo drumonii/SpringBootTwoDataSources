@@ -1,6 +1,6 @@
 apply plugin: 'com.moowork.node'
 
-buildscript { 
+buildscript {
     repositories {
         maven {
           url 'https://plugins.gradle.org/m2/'
@@ -12,7 +12,7 @@ buildscript {
 }
 
 node {
-    version = '12.3.1'
+    version = '12.13.0'
     download = true
     workDir = file("${project.buildDir}/node")
     npmWorkDir = file("${project.buildDir}/npm")
