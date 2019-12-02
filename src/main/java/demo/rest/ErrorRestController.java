@@ -23,7 +23,7 @@ public class ErrorRestController extends AbstractErrorController {
         super(errorAttributes);
     }
 
-    @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
         Map<String, Object> body = getErrorAttributes(request, false);
         HttpStatus status = getStatus(request);
