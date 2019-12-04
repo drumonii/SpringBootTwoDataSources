@@ -8,6 +8,7 @@ import { finalize, map } from 'rxjs/operators';
 import { DatasourceProperties } from '@models/datasource-properties';
 import { DatatableRequest } from '@models/datatable-request';
 import { NewEntityForm } from '@models/new-entity-form';
+import { FlywayMigration } from '@models/flyway-response';
 
 import { PrimaryService } from './primary.service';
 import { PrimaryEntity } from './primary-entity';
@@ -20,6 +21,7 @@ import { PrimaryEntity } from './primary-entity';
 export class PrimaryView implements OnInit, OnDestroy {
 
   primaryDatasourceProperties$: Observable<DatasourceProperties>;
+  primaryFlyway$: Observable<FlywayMigration[]>;
 
   errors: ValidationErrors;
 
@@ -33,10 +35,15 @@ export class PrimaryView implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getPrimaryDataSourceProperties();
+    this.getPrimaryFlyway();
   }
 
   private getPrimaryDataSourceProperties() {
     this.primaryDatasourceProperties$ = this.primaryService.getPrimaryDataSourceEnv();
+  }
+
+  private getPrimaryFlyway() {
+    this.primaryFlyway$ = this.primaryService.getPrimaryFlyway();
   }
 
   getPrimary(datatableRequest: DatatableRequest) {

@@ -33,6 +33,7 @@ $primary-color: mat-color($primary);
 @import 'styles/footer';
 @import 'styles/header';
 @import 'styles/page-header';
+@import 'styles/table';
 
 // Custom demo app theme
 @mixin demo-app-theme() {
@@ -52,6 +53,7 @@ $primary-color: mat-color($primary);
   @include footer-theme($demo-app-theme);
   @include header-theme($demo-app-theme);
   @include page-header-theme($demo-app-theme);
+  @include table-theme($demo-app-theme);
 }
 
 // Include custom demo app theme

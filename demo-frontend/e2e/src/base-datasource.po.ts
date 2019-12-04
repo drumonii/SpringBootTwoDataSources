@@ -28,6 +28,10 @@ export class BaseDatasourcePage extends AppPage {
     return element(by.css('#config-props-table'));
   }
 
+  getFlywayMigrationsTable(): ElementFinder {
+    return element(by.css('#flyway-migrations-table'));
+  }
+
   getNewEntityForm(): NewEntityForm {
     return new NewEntityForm();
   }

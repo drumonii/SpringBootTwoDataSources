@@ -8,6 +8,7 @@ import { of } from 'rxjs';
 
 import { DataSourcePropertiesComponent } from '@components/data-source-properties.component';
 import { DatatableComponent } from '@components/datatable.component';
+import { FlywayDatatableComponent } from '@components/flyway-datatable.component';
 import { PageHeaderComponent } from '@components/page-header.component';
 import { ValidationResponse } from '@models/validation-response';
 import { PaginatedResponse } from '@models/paginated-response';
@@ -44,6 +45,7 @@ describe('SecondaryView', () => {
     component = fixture.componentInstance;
 
     spyOn(secondaryService, 'getSecondaryDataSourceEnv');
+    spyOn(secondaryService, 'getSecondaryFlyway');
     spyOn(secondaryService, 'getSecondary').and.returnValue(of(paginatedResponse));
 
     fixture.detectChanges();
@@ -58,7 +60,9 @@ describe('SecondaryView', () => {
 
   it('should get the datasource properties', inject([SecondaryService], (secondaryService: SecondaryService) => {
     expect(fixture.debugElement.query(By.directive(DataSourcePropertiesComponent))).toBeTruthy('datasource props component');
+    expect(fixture.debugElement.query(By.directive(FlywayDatatableComponent))).toBeTruthy('flyway migrations component');
     expect(secondaryService.getSecondaryDataSourceEnv).toHaveBeenCalled();
+    expect(secondaryService.getSecondaryFlyway).toHaveBeenCalled();
   }));
 
   it('should get the paginated secondary', () => {

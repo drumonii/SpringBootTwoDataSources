@@ -8,6 +8,7 @@ import { finalize, map } from 'rxjs/operators';
 import { DatasourceProperties } from '@models/datasource-properties';
 import { DatatableRequest } from '@models/datatable-request';
 import { NewEntityForm } from '@models/new-entity-form';
+import { FlywayMigration } from '@models/flyway-response';
 
 import { SecondaryService } from './secondary.service';
 import { SecondaryEntity } from './secondary-entity';
@@ -20,6 +21,7 @@ import { SecondaryEntity } from './secondary-entity';
 export class SecondaryView implements OnInit, OnDestroy {
 
   secondaryDatasourceProperties$: Observable<DatasourceProperties>;
+  secondaryFlyway$: Observable<FlywayMigration[]>;
 
   errors: ValidationErrors;
 
@@ -37,6 +39,7 @@ export class SecondaryView implements OnInit, OnDestroy {
 
   private getSecondaryDataSourceProperties() {
     this.secondaryDatasourceProperties$ = this.secondaryService.getSecondaryDataSourceEnv();
+    this.secondaryFlyway$ = this.secondaryService.getSecondaryFlyway();
   }
 
   getSecondary(datatableRequest: DatatableRequest) {

@@ -1,10 +1,11 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController, RequestMatch } from '@angular/common/http/testing';
 
 import { ActuatorEnvResponse } from '@models/actuator-env-response';
 import { ValidationResponse } from '@models/validation-response';
 import { DatatableRequest } from '@models/datatable-request';
 import { PaginatedResponse } from '@models/paginated-response';
+import { FlywayResponse } from '@models/flyway-response';
 
 import { PrimaryService } from './primary.service';
 import { PrimaryForm } from './primary-form';
@@ -29,57 +30,57 @@ describe('PrimaryService', () => {
     it('should GET the primary datasource env', inject([PrimaryService, HttpTestingController],
       (service: PrimaryService, httpMock: HttpTestingController) => {
       const mockActuatorEnvResponse: ActuatorEnvResponse = {
-        "propertySources": [
+        'propertySources': [
           {
-            "name": "applicationConfig: [classpath:/application.yml]",
-            "properties": {
-              "primary.datasource.url": {
-                "value": "jdbc:h2:mem:primary",
-                "origin": "class path resource [application.yml]:23:10"
+            'name': 'applicationConfig: [classpath:/application.yml]',
+            'properties': {
+              'primary.datasource.url': {
+                'value': 'jdbc:h2:mem:primary',
+                'origin': 'class path resource [application.yml]:23:10'
               },
-              "primary.datasource.username": {
-                "value": "sa",
-                "origin": "class path resource [application.yml]:24:15"
+              'primary.datasource.username': {
+                'value': 'sa',
+                'origin': 'class path resource [application.yml]:24:15'
               },
-              "primary.datasource.password": {
-                "value": "******",
-                "origin": "class path resource [application.yml]:25:14"
+              'primary.datasource.password': {
+                'value': '******',
+                'origin': 'class path resource [application.yml]:25:14'
               },
-              "primary.flyway.location": {
-                "value": "classpath:db/migration/primary",
-                "origin": "class path resource [application.yml]:27:15"
+              'primary.flyway.location': {
+                'value': 'classpath:db/migration/primary',
+                'origin': 'class path resource [application.yml]:27:15'
               },
-              "primary.jpa.properties.hibernate.show_sql": {
-                "value": true,
-                "origin": "class path resource [application.yml]:32:19"
+              'primary.jpa.properties.hibernate.show_sql': {
+                'value': true,
+                'origin': 'class path resource [application.yml]:32:19'
               },
-              "primary.jpa.properties.hibernate.format_sql": {
-                "value": true,
-                "origin": "class path resource [application.yml]:33:21"
+              'primary.jpa.properties.hibernate.format_sql': {
+                'value': true,
+                'origin': 'class path resource [application.yml]:33:21'
               },
-              "primary.jpa.properties.hibernate.generate_statistics": {
-                "value": true,
-                "origin": "class path resource [application.yml]:34:30"
+              'primary.jpa.properties.hibernate.generate_statistics': {
+                'value': true,
+                'origin': 'class path resource [application.yml]:34:30'
               },
-              "primary.jpa.properties.hibernate.id.new_generator_mappings": {
-                "value": true,
-                "origin": "class path resource [application.yml]:35:36"
+              'primary.jpa.properties.hibernate.id.new_generator_mappings': {
+                'value': true,
+                'origin': 'class path resource [application.yml]:35:36'
               },
-              "primary.jpa.properties.hibernate.order_updates": {
-                "value": true,
-                "origin": "class path resource [application.yml]:36:24"
+              'primary.jpa.properties.hibernate.order_updates': {
+                'value': true,
+                'origin': 'class path resource [application.yml]:36:24'
               },
-              "primary.jpa.properties.hibernate.default_batch_fetch_size": {
-                "value": 4,
-                "origin": "class path resource [application.yml]:37:35"
+              'primary.jpa.properties.hibernate.default_batch_fetch_size': {
+                'value': 4,
+                'origin': 'class path resource [application.yml]:37:35'
               },
-              "primary.jpa.properties.hibernate.max_fetch_depth": {
-                "value": 2,
-                "origin": "class path resource [application.yml]:38:26"
+              'primary.jpa.properties.hibernate.max_fetch_depth': {
+                'value': 2,
+                'origin': 'class path resource [application.yml]:38:26'
               },
-              "primary.jpa.properties.hibernate.hbm2ddl.auto": {
-                "value": "",
-                "origin": "class path resource [application.yml]:39:22"
+              'primary.jpa.properties.hibernate.hbm2ddl.auto': {
+                'value': "",
+                'origin': 'class path resource [application.yml]:39:22'
               }
             }
           }
@@ -132,7 +133,7 @@ describe('PrimaryService', () => {
 
   });
 
-  describe('getSecondary', () => {
+  describe('getPrimary', () => {
 
     const mockRequest: DatatableRequest = {
       page: 0,
@@ -145,7 +146,7 @@ describe('PrimaryService', () => {
       url: `/primary?page=${mockRequest.page}&size=${mockRequest.size}&sort=${mockRequest.sorts[0]}`
     };
 
-    it('should GET secondary', inject([PrimaryService, HttpTestingController],
+    it('should GET primary', inject([PrimaryService, HttpTestingController],
       (service: PrimaryService, httpMock: HttpTestingController) => {
       const mockPaginatedResponse: PaginatedResponse<PrimaryEntity> = {
         content: [
@@ -179,5 +180,48 @@ describe('PrimaryService', () => {
 
       testReq.error(new ErrorEvent('500'));
     }));
+  });
+
+  describe('getPrimaryFlyway', () => {
+
+    const requestMatch: RequestMatch = { method: 'GET', url: '/flyway' };
+
+    it('should GET the primary flyway', inject([PrimaryService, HttpTestingController],
+      (service: PrimaryService, httpMock: HttpTestingController) => {
+      const mockFlywayResponse: FlywayResponse = {
+        contexts: {
+          application: {
+            flywayBeans: {
+              primaryFlyway: {
+                migrations: [
+                  {
+                    script: 'V1438645918__PRIMARY_MODEL.sql',
+                    state: 'SUCCESS',
+                    executionTime: 3
+                  },
+                  {
+                    script: 'V1438824220__PRIMARY_MODEL_INSERT.sql',
+                    state: 'SUCCESS',
+                    executionTime: 5
+                  }
+                ]
+              },
+              secondaryFlyway: {
+                migrations: []
+              }
+            }
+          }
+        }
+      };
+
+      service.getPrimaryFlyway().subscribe(migrations => {
+        expect(migrations).toEqual(mockFlywayResponse.contexts.application.flywayBeans.primaryFlyway.migrations);
+      });
+
+      const testReq = httpMock.expectOne(requestMatch);
+
+      testReq.flush(mockFlywayResponse);
+    }));
+
   });
 });

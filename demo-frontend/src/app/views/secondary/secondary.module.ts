@@ -10,6 +10,7 @@ import { DataSourcePropertiesModule } from '@components/data-source-properties.m
 import { DatatableModule } from '@components/datatable.module';
 import { NewEntityModule } from '@components/new-entity.module';
 import { PageHeaderModule } from '@components/page-header.module';
+import { FlywayDatatableModule } from '@components/flyway-datatable.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PageHeaderModule } from '@components/page-header.module';
     DataSourcePropertiesModule,
     DatatableModule,
     NewEntityModule,
-    PageHeaderModule
+    PageHeaderModule,
+    FlywayDatatableModule
   ],
   providers: [
     SecondaryService

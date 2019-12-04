@@ -1,0 +1,27 @@
+<h4 class="section-header">Flyway Migrations</h4>
+
+<table class="properties-table" id="flyway-migrations-table">
+  <thead>
+  <tr>
+    <th>Script</th>
+    <th>State</th>
+    <th>Execution Time</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngIf="(migrations$ | async) as migrations; else loadingMigrations">
+    <tr *ngFor="let migration of migrations">
+      <td>{{migration.script}}</td>
+      <td>{{migration.state}}</td>
+      <td>{{migration.executionTime}} ms</td>
+    </tr>
+  </ng-container>
+  <ng-template #loadingMigrations>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </ng-template>
+  </tbody>
+</table>

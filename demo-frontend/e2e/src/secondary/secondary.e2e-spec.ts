@@ -20,6 +20,10 @@ describe('Secondary DataSource page', () => {
     expect(await page.getConfigPropsTable().isPresent()).toBe(true);
   });
 
+  it('should show the flyway migrations properties table', async () => {
+    expect(await page.getFlywayMigrationsTable().isPresent()).toBe(true);
+  });
+
   it('should save new primary entity', async () => {
     const form = page.getNewEntityForm();
 

@@ -9,6 +9,7 @@ import { ActuatorEnvResponse } from '@models/actuator-env-response';
 import { ValidationResponse } from '@models/validation-response';
 import { DatatableRequest } from '@models/datatable-request';
 import { PaginatedResponse } from '@models/paginated-response';
+import { FlywayMigration, FlywayResponse } from '@models/flyway-response';
 
 import { SecondaryForm } from './secondary-form';
 import { SecondaryEntity } from './secondary-entity';
@@ -45,6 +46,13 @@ export class SecondaryService {
           content: [],
           totalElements: 0
         }))
+      );
+  }
+
+  getSecondaryFlyway(): Observable<FlywayMigration[]> {
+    return this.httpClient.get<FlywayResponse>('/flyway')
+      .pipe(
+        map(response => response.contexts.application.flywayBeans.secondaryFlyway.migrations)
       );
   }
 
