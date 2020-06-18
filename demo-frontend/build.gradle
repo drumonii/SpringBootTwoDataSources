@@ -12,7 +12,7 @@ buildscript {
 }
 
 node {
-    version = '12.13.0'
+    version = '12.16.3'
     download = true
     workDir = file("${project.buildDir}/node")
     npmWorkDir = file("${project.buildDir}/npm")
