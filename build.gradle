@@ -40,10 +40,6 @@ dependencies {
     }
 }
 
-wrapper {
-    gradleVersion = '5.6.4'
-}
-
 task stage {
     dependsOn build
 }
