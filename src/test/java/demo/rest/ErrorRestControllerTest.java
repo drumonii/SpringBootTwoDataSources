@@ -5,6 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.JsonPathExpectationsHelper;
@@ -27,6 +28,7 @@ class ErrorRestControllerTest {
 
         ResponseEntity<String> responseEntity = new TestRestTemplate().exchange(requestEntity, String.class);
 
+        assertThat(responseEntity.getHeaders().getContentType()).isEqualTo(MediaType.APPLICATION_JSON);
         assertThat(responseEntity.getBody()).satisfies(new ErrorJson());
     }
 
