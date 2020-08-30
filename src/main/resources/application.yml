@@ -14,9 +14,7 @@ spring:
     open-in-view: false
   # Resources
   resources:
-    cache:
-      cachecontrol:
-        max-age: 31536000s
+    add-mappings: false
   # Flyway
   flyway:
     enabled: false # to keep boot from migrating
