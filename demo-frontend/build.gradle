@@ -11,5 +11,14 @@ node {
 }
 
 task npmBuild(type: NpmTask, dependsOn: 'npmInstall') {
+    inputs.files(fileTree('node_modules'))
+    inputs.files(fileTree('src'))
+    inputs.file('angular.json')
+    inputs.file('package.json')
+    inputs.file('package-lock.json')
+
+    outputs.dir('dist')
+    outputs.cacheIf { true }
+
     args = ['run', 'build']
 }
