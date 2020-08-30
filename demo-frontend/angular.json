@@ -31,8 +31,7 @@
               "src/styles.scss",
               "src/theme.scss"
             ],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -136,7 +135,9 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
+            "tsConfig": [
+              "e2e/tsconfig.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]
