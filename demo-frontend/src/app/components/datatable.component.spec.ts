@@ -134,9 +134,9 @@ describe('DatatableComponent', () => {
 
   describe('sort change', () => {
 
-    xit('should emit datatable request', () => {
-      const sortBtn = fixture.debugElement.query(By.css('.mat-sort-header-button')); // TODO: not sure why this doesn't exist in the test
-      sortBtn.triggerEventHandler('click', null);
+    it('should emit datatable request', () => {
+      const sortBtn = fixture.debugElement.query(By.css('.mat-sort-header-container'));
+      sortBtn.nativeElement.click();
 
       fixture.detectChanges();
 
