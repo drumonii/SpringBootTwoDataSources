@@ -50,7 +50,7 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {

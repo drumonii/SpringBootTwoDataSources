@@ -33,20 +33,20 @@ export class PrimaryView implements OnInit, OnDestroy {
 
   constructor(private primaryService: PrimaryService, private snackBar: MatSnackBar) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getPrimaryDataSourceProperties();
     this.getPrimaryFlyway();
   }
 
-  private getPrimaryDataSourceProperties() {
+  private getPrimaryDataSourceProperties(): void {
     this.primaryDatasourceProperties$ = this.primaryService.getPrimaryDataSourceEnv();
   }
 
-  private getPrimaryFlyway() {
+  private getPrimaryFlyway(): void {
     this.primaryFlyway$ = this.primaryService.getPrimaryFlyway();
   }
 
-  getPrimary(datatableRequest: DatatableRequest) {
+  getPrimary(datatableRequest: DatatableRequest): void {
     this.isLoadingResults = true;
     this.data$ = this.primaryService.getPrimary(datatableRequest)
       .pipe(

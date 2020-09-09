@@ -17,7 +17,7 @@ export class DataSourcePropertiesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }

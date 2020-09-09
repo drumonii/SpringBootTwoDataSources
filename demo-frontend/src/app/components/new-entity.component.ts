@@ -36,14 +36,14 @@ export class NewEntityComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   submitNewEntity(): void {
     if (this.newEntityForm.valid) {
       this.newEntityEvent.emit({
         name: this.newEntityForm.get('name').value
-      })
+      });
     }
   }
 

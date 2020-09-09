@@ -33,16 +33,16 @@ export class SecondaryView implements OnInit, OnDestroy {
 
   constructor(private secondaryService: SecondaryService, private snackBar: MatSnackBar) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getSecondaryDataSourceProperties();
   }
 
-  private getSecondaryDataSourceProperties() {
+  private getSecondaryDataSourceProperties(): void {
     this.secondaryDatasourceProperties$ = this.secondaryService.getSecondaryDataSourceEnv();
     this.secondaryFlyway$ = this.secondaryService.getSecondaryFlyway();
   }
 
-  getSecondary(datatableRequest: DatatableRequest) {
+  getSecondary(datatableRequest: DatatableRequest): void {
     this.isLoadingResults = true;
     this.data$ = this.secondaryService.getSecondary(datatableRequest)
       .pipe(

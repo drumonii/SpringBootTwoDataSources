@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
@@ -95,12 +95,12 @@ describe('DatatableComponent', () => {
     }
   ];
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async ()  => {
+    await TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, DatatableModule]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatatableComponent);

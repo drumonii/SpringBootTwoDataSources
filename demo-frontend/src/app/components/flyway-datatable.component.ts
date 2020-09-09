@@ -17,7 +17,7 @@ export class FlywayDatatableComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }

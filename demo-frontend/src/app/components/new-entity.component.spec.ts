@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
@@ -9,12 +9,12 @@ describe('NewEntityComponent', () => {
   let component: NewEntityComponent;
   let fixture: ComponentFixture<NewEntityComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, NewEntityModule]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NewEntityComponent);
@@ -66,7 +66,7 @@ describe('NewEntityComponent', () => {
       const validationFeedback = fixture.debugElement.query(By.css('#name-validation-feedback'));
       expect(validationFeedback.nativeElement.textContent.trim()).toBe('Name already exists');
       expect(component.newEntityForm.valid).toBe(false);
-      expect(component.newEntityEvent.emit).toHaveBeenCalledWith({ name: 'Hello World!' })
+      expect(component.newEntityEvent.emit).toHaveBeenCalledWith({ name: 'Hello World!' });
     });
 
   });
@@ -86,12 +86,12 @@ describe('NewEntityComponent', () => {
 
       expect(fixture.debugElement.query(By.css('#name-validation-feedback'))).toBeFalsy();
       expect(component.newEntityForm.valid).toBe(true);
-      expect(component.newEntityEvent.emit).toHaveBeenCalledWith({ name: 'Hello World!' })
+      expect(component.newEntityEvent.emit).toHaveBeenCalledWith({ name: 'Hello World!' });
     });
 
   });
 
-  function submitNewEntity() {
+  function submitNewEntity(): void {
     const submitBtn = fixture.debugElement.query(By.css('#new-entity-btn'));
     submitBtn.nativeElement.click();
   }

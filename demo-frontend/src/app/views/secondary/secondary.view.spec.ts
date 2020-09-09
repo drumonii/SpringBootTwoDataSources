@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -33,12 +33,12 @@ describe('SecondaryView', () => {
     totalElements: 1
   };
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, NoopAnimationsModule, SecondaryModule]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(inject([SecondaryService], (secondaryService: SecondaryService) => {
     fixture = TestBed.createComponent(SecondaryView);

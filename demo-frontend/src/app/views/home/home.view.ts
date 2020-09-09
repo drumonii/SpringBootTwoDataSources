@@ -15,11 +15,11 @@ export class HomeView implements OnInit {
 
   constructor(private homeService: HomeService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getSpringBootVersion();
   }
 
-  private getSpringBootVersion() {
+  private getSpringBootVersion(): void {
     this.springBootVersion$ = this.homeService.getSpringBootVersion();
   }
 
