@@ -7,14 +7,14 @@ apply plugin: 'io.spring.dependency-management'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-version = '3.1.0-SNAPSHOT'
+version = '3.2.0-SNAPSHOT'
 
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.3.5.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.4.0'
     }
 }
 
@@ -27,7 +27,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-devtools'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // H2
     runtimeOnly 'com.h2database:h2'
@@ -36,9 +36,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
 
     // Testing
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 task stage {

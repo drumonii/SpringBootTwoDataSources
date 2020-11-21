@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class FlywayConfig {
 
 	@Bean(initMethod = "migrate")
