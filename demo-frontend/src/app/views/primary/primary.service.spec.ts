@@ -32,55 +32,55 @@ describe('PrimaryService', () => {
       const mockActuatorEnvResponse: ActuatorEnvResponse = {
         'propertySources': [
           {
-            'name': 'applicationConfig: [classpath:/application.yml]',
+            'name': "Config resource 'class path resource [application.yml]' via location 'optional:classpath:/'",
             'properties': {
               'primary.datasource.url': {
                 'value': 'jdbc:h2:mem:primary',
-                'origin': 'class path resource [application.yml]:23:10'
+                'origin': 'class path resource [application.yml] - 38:10'
               },
               'primary.datasource.username': {
                 'value': 'sa',
-                'origin': 'class path resource [application.yml]:24:15'
+                'origin': 'class path resource [application.yml] - 39:15'
               },
               'primary.datasource.password': {
                 'value': '******',
-                'origin': 'class path resource [application.yml]:25:14'
+                'origin': 'class path resource [application.yml] - 40:14'
               },
               'primary.flyway.location': {
                 'value': 'classpath:db/migration/primary',
-                'origin': 'class path resource [application.yml]:27:15'
+                'origin': 'class path resource [application.yml] - 42:15'
               },
               'primary.jpa.properties.hibernate.show_sql': {
                 'value': true,
-                'origin': 'class path resource [application.yml]:32:19'
+                'origin': 'class path resource [application.yml] - 46:19'
               },
               'primary.jpa.properties.hibernate.format_sql': {
                 'value': true,
-                'origin': 'class path resource [application.yml]:33:21'
+                'origin': 'class path resource [application.yml] - 47:21'
               },
               'primary.jpa.properties.hibernate.generate_statistics': {
                 'value': true,
-                'origin': 'class path resource [application.yml]:34:30'
+                'origin': 'class path resource [application.yml] - 48:30'
               },
               'primary.jpa.properties.hibernate.id.new_generator_mappings': {
                 'value': true,
-                'origin': 'class path resource [application.yml]:35:36'
+                'origin': 'class path resource [application.yml] - 49:36'
               },
               'primary.jpa.properties.hibernate.order_updates': {
                 'value': true,
-                'origin': 'class path resource [application.yml]:36:24'
+                'origin': 'class path resource [application.yml] - 50:24'
               },
               'primary.jpa.properties.hibernate.default_batch_fetch_size': {
                 'value': 4,
-                'origin': 'class path resource [application.yml]:37:35'
+                'origin': 'class path resource [application.yml] - 51:35'
               },
               'primary.jpa.properties.hibernate.max_fetch_depth': {
                 'value': 2,
-                'origin': 'class path resource [application.yml]:38:26'
+                'origin': 'class path resource [application.yml] - 52:26'
               },
               'primary.jpa.properties.hibernate.hbm2ddl.auto': {
-                'value': "",
-                'origin': 'class path resource [application.yml]:39:22'
+                'value': '',
+                'origin': 'class path resource [application.yml] - 53:22'
               }
             }
           }

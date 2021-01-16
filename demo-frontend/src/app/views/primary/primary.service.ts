@@ -58,7 +58,7 @@ export class PrimaryService {
 
   private extractProperties(actuatorEnvResponse: ActuatorEnvResponse): DatasourceProperties {
     const appConfigPropertySource = actuatorEnvResponse.propertySources
-      .find(propertySource => propertySource.name === 'applicationConfig: [classpath:/application.yml]');
+      .find(propertySource => propertySource.name === `Config resource 'class path resource [application.yml]' via location 'optional:classpath:/'`);
     const appConfigProperties = appConfigPropertySource.properties;
     return {
       jdbcUrl: appConfigProperties['primary.datasource.url'].value,
