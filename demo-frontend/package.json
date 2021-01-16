@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
+    "test-coverage": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e --port 4201 --webdriverUpdate=false"
   },
