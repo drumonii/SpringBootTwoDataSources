@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
+    "build-with-stats": "ng build --prod --stats-json",
     "test": "ng test",
     "test-coverage": "ng test --code-coverage",
     "lint": "ng lint",
