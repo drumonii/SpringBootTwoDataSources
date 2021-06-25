@@ -1,60 +1,43 @@
-@import '~@angular/material/theming';
-// Plus imports for other components in your app.
+@use '~@angular/material' as mat;
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
+@use 'sass:map';
+@use 'styles/footer';
+@use 'styles/header';
+@use 'styles/page-header';
+@use 'styles/table';
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$demo-app-primary: mat-palette($mat-green);
-$demo-app-accent: mat-palette($mat-amber);
+@include mat.core();
 
-// The warn palette is optional (defaults to red).
-$demo-app-warn: mat-palette($mat-red);
+$demo-app-primary: mat.define-palette(mat.$green-palette);
+$demo-app-accent: mat.define-palette(mat.$amber-palette);
 
-// Create the theme object (a Sass map containing all of the palettes).
-$demo-app-theme: mat-light-theme($demo-app-primary, $demo-app-accent, $demo-app-warn);
+$demo-app-theme: mat.define-light-theme((
+  color: (
+    primary: $demo-app-primary,
+    accent: $demo-app-accent,
+  )
+));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($demo-app-theme);
+@include mat.all-component-themes($demo-app-theme);
 
 // Variables for mixins
-$background: map-get($demo-app-theme, background);
-$body-background-color: mat-color($background, background);
-$primary: map-get($demo-app-theme, primary);
-$primary-color: mat-color($primary);
+$background: map.get($demo-app-theme, background);
+$foreground: map.get($demo-app-theme, foreground);
 
-// Import custom theme styles
-@import 'styles/footer';
-@import 'styles/header';
-@import 'styles/page-header';
-@import 'styles/table';
-
-// Custom demo app theme
-@mixin demo-app-theme() {
-  .demo-app-background {
-    background: $body-background-color;
-  }
-
-  .section-header {
-    color: $dark-primary-text;
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    font-weight: 500;
-    line-height: 1.2;
-  }
-
-  // Include the theme mixins from the theme styles
-  @include footer-theme($demo-app-theme);
-  @include header-theme($demo-app-theme);
-  @include page-header-theme($demo-app-theme);
-  @include table-theme($demo-app-theme);
+.demo-app-background {
+  background: mat.get-color-from-palette($background, background);
 }
 
-// Include custom demo app theme
-@include demo-app-theme();
+.section-header {
+  color: mat.get-color-from-palette($foreground, text);
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+// Include the theme mixins from the theme styles
+@include footer.footer-theme($demo-app-theme);
+@include header.header-theme($demo-app-theme);
+@include page-header.page-header-theme($demo-app-theme);
+@include table.table-theme($demo-app-theme);

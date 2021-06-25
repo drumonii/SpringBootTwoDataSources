@@ -1,7 +1,10 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+
 @mixin page-header-theme($demo-app-theme) {
-  $primary: map-get($demo-app-theme, primary);
-  $primary-color: mat-color($primary);
-  $text-color: mat-color($primary, darker-contrast);
+  $primary: map.get($demo-app-theme, primary);
+  $primary-color: mat.get-color-from-palette($primary);
+  $text-color: mat.get-color-from-palette($primary, darker-contrast);
 
   .page-header {
     background: $primary-color;
