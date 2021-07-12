@@ -18,6 +18,9 @@ spring:
   # Flyway
   flyway:
     enabled: false # to keep boot from migrating
+  # JPA
+  jpa:
+    open-in-view: false
 
 # Management
 management:
