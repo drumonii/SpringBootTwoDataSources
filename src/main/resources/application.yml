@@ -9,15 +9,16 @@ spring:
     hiddenmethod:
       filter:
         enabled: false
-  # Resources
-  resources:
-    add-mappings: false
   # Flyway
   flyway:
     enabled: false # to keep boot from migrating
   # JPA
   jpa:
     open-in-view: false
+  # Web
+  web:
+    resources:
+      add-mappings: false
 
 # Management
 management:
