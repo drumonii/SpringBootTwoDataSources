@@ -9,9 +9,6 @@ spring:
     hiddenmethod:
       filter:
         enabled: false
-  # JPA
-  jpa:
-    open-in-view: false
   # Resources
   resources:
     add-mappings: false
