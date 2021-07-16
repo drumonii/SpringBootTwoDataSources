@@ -31,9 +31,4 @@ public class ErrorRestController extends AbstractErrorController {
         return new ResponseEntity<>(body, status);
     }
 
-    @Override
-    public String getErrorPath() {
-        return path;
-    }
-
 }
