@@ -20,7 +20,7 @@ describe('Secondary DataSource page', () => {
     page.getFlywayMigrationsTable().should('exist');
   });
 
-  it('should save new primary entity', () => {
+  it('should save new secondary entity', () => {
     const form = page.getNewEntityForm();
 
     const name = Math.random().toString(36);
@@ -36,7 +36,7 @@ describe('Secondary DataSource page', () => {
     form.getNameValidationFeedback().should('exist');
   });
 
-  it('should show saved primary entities', () => {
+  it('should show saved secondary entities', () => {
     page.getSavedEntities().should('exist');
   });
 
