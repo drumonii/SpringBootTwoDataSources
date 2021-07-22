@@ -18,6 +18,10 @@ buildscript {
     }
 }
 
+jar {
+    enabled = false
+}
+
 bootJar {
     dependsOn ':demo-frontend:npmBuild'
     from ("${project(':demo-frontend').projectDir}/dist") {
