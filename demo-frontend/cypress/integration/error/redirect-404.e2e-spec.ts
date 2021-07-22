@@ -9,7 +9,8 @@ describe('redirection to / on 404', () => {
   });
 
   it('should redirect to / on invalid route', () => {
-    cy.url().should('equal', 'http://localhost:4200/');
+    const port = window.location.port;
+    cy.url().should('equal', `http://localhost:${port}/`);
   });
 
 });
