@@ -3,12 +3,12 @@ import { ValidationErrors } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Observable, Subscription } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
 
 import { DatasourceProperties } from '@models/datasource-properties';
 import { DatatableRequest } from '@models/datatable-request';
 import { NewEntityForm } from '@models/new-entity-form';
 import { FlywayMigration } from '@models/flyway-response';
+import { PaginatedResponse } from '@models/paginated-response';
 
 import { PrimaryService } from './primary.service';
 import { PrimaryEntity } from './primary-entity';
@@ -25,9 +25,7 @@ export class PrimaryView implements OnInit, OnDestroy {
 
   errors: ValidationErrors;
 
-  data$: Observable<PrimaryEntity[]>;
-  resultsLength: number;
-  isLoadingResults: boolean;
+  data$: Observable<PaginatedResponse<PrimaryEntity>>;
 
   private subscription = new Subscription();
 
@@ -47,15 +45,7 @@ export class PrimaryView implements OnInit, OnDestroy {
   }
 
   getPrimary(datatableRequest: DatatableRequest): void {
-    this.isLoadingResults = true;
-    this.data$ = this.primaryService.getPrimary(datatableRequest)
-      .pipe(
-        finalize(() => this.isLoadingResults = false),
-        map((paginatedResponse) => {
-          this.resultsLength = paginatedResponse.totalElements;
-          return paginatedResponse.content;
-        })
-      );
+    this.data$ = this.primaryService.getPrimary(datatableRequest);
   }
 
   submitNewPrimary(form: NewEntityForm): void {

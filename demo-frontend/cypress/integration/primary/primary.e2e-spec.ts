@@ -40,4 +40,30 @@ describe('Primary DataSource page', () => {
     page.getSavedEntities().should('exist')
   });
 
+  it('should sort the saved primary entities', () => {
+    page.getFirstEntity().then((initialEntity) => {
+      page.sortDatatable();
+
+      page.getFirstEntity().should('not.eq', initialEntity);
+    });
+  });
+
+  it('should paginate the saved primary entities', () => {
+    page.getFirstEntity().then((initialEntity) => {
+      page.paginateDatatable();
+
+      page.getFirstEntity().should('not.eq', initialEntity);
+    });
+  });
+
+  it('should paginate end pages of the saved primary entities', () => {
+    page.getFirstEntity().then((firstEntity) => {
+      page.lastPageOfDatatable();
+      page.getFirstEntity().should('not.eq', firstEntity);
+
+      page.firstPageOfDatatable();
+      page.getFirstEntity().should('eq', firstEntity);
+    });
+  });
+
 });

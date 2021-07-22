@@ -1,12 +1,12 @@
 <h4 class="section-header">Saved Entities</h4>
 
-<mat-progress-bar class="example-margin" [mode]="'indeterminate'" *ngIf="isLoadingResults">
+<mat-progress-bar class="example-margin" [mode]="'indeterminate'" *ngIf="!data">
 </mat-progress-bar>
 
 <div class="mat-elevation-z6">
   <table id="saved-entities-datatable"
     mat-table matSort matSortActive="name" matSortDisableClear matSortDirection="asc"
-    [dataSource]="data$">
+    [dataSource]="data?.content" (matSortChange)="sortChange($event)">
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -18,5 +18,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [length]="resultsLength" [pageSize]="10" showFirstLastButtons></mat-paginator>
+  <mat-paginator showFirstLastButtons [length]="data?.totalElements" [pageSize]="10" (page)="pageChange($event)">
+  </mat-paginator>
 </div>

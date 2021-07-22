@@ -7,7 +7,7 @@
 
   <app-new-entity [errors]="errors" (newEntityEvent)="submitNewPrimary($event)"></app-new-entity>
 
-  <app-datatable [data$]="data$" [isLoadingResults]="isLoadingResults" [resultsLength]="resultsLength"
+  <app-datatable [data]="data$ | async"
     (getDataEvent)="getPrimary($event)">
   </app-datatable>
 </div>

@@ -2,10 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
-import { of } from 'rxjs';
-
 import { DatatableModule } from '@components/datatable.module';
 import { DatatableComponent } from '@components/datatable.component';
+import { PaginatedResponse } from '@models/paginated-response';
 import { BaseEntity } from '@models/base-entity';
 
 describe('DatatableComponent', () => {
@@ -95,6 +94,11 @@ describe('DatatableComponent', () => {
     }
   ];
 
+  const response: PaginatedResponse<BaseEntity> = {
+    content: entities,
+    totalElements: entities.length
+  }
+
   beforeEach(async ()  => {
     await TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, DatatableModule]
@@ -106,9 +110,7 @@ describe('DatatableComponent', () => {
     fixture = TestBed.createComponent(DatatableComponent);
     component = fixture.componentInstance;
 
-    component.data$ = of(entities);
-    component.resultsLength = entities.length;
-    component.isLoadingResults = false;
+    component.data = response;
 
     spyOn(component.getDataEvent, 'emit');
 

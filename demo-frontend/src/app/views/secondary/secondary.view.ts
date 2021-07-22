@@ -3,12 +3,12 @@ import { ValidationErrors } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Observable, Subscription } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
 
 import { DatasourceProperties } from '@models/datasource-properties';
 import { DatatableRequest } from '@models/datatable-request';
 import { NewEntityForm } from '@models/new-entity-form';
 import { FlywayMigration } from '@models/flyway-response';
+import { PaginatedResponse } from '@models/paginated-response';
 
 import { SecondaryService } from './secondary.service';
 import { SecondaryEntity } from './secondary-entity';
@@ -25,9 +25,7 @@ export class SecondaryView implements OnInit, OnDestroy {
 
   errors: ValidationErrors;
 
-  data$: Observable<SecondaryEntity[]>;
-  resultsLength: number;
-  isLoadingResults: boolean;
+  data$: Observable<PaginatedResponse<SecondaryEntity>>;
 
   private subscription = new Subscription();
 
@@ -43,15 +41,7 @@ export class SecondaryView implements OnInit, OnDestroy {
   }
 
   getSecondary(datatableRequest: DatatableRequest): void {
-    this.isLoadingResults = true;
-    this.data$ = this.secondaryService.getSecondary(datatableRequest)
-      .pipe(
-        finalize(() => this.isLoadingResults = false),
-        map((paginatedResponse) => {
-          this.resultsLength = paginatedResponse.totalElements;
-          return paginatedResponse.content;
-        })
-      );
+    this.data$ = this.secondaryService.getSecondary(datatableRequest);
   }
 
   submitNewSecondary(form: NewEntityForm): void {
