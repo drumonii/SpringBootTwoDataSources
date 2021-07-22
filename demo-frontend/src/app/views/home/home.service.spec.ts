@@ -24,7 +24,7 @@ describe('HomeService', () => {
       const mockSpringBootVersionResponse = { "springBootVersion": "2.1.2.RELEASE" };
 
       service.getSpringBootVersion().subscribe(springBootVersion => {
-        expect(springBootVersion).toEqual('2.1.2.RELEASE');
+        expect(springBootVersion).toBe('2.1.2.RELEASE');
       });
 
       const testReq = httpMock.expectOne(requestMatch);
