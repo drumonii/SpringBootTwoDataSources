@@ -1,7 +1,7 @@
 <app-page-header [pageHeader]="'Primary DataSource'"></app-page-header>
 
 <div class="container">
-  <app-data-source-properties [datasourceProperties$]="primaryDatasourceProperties$"></app-data-source-properties>
+  <app-data-source-properties [datasourceProperties]="primaryDatasourceProperties$ | async"></app-data-source-properties>
 
   <app-flyway-datatable [migrations]="primaryFlyway$ | async"></app-flyway-datatable>
 

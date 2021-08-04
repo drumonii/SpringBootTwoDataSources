@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs';
-
 import { DatasourceProperties } from '@models/datasource-properties';
 
 @Component({
@@ -13,7 +11,7 @@ import { DatasourceProperties } from '@models/datasource-properties';
 export class DataSourcePropertiesComponent implements OnInit {
 
   @Input()
-  datasourceProperties$: Observable<DatasourceProperties>;
+  datasourceProperties: DatasourceProperties;
 
   constructor() { }
 

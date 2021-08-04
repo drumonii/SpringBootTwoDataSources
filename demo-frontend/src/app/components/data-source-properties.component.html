@@ -12,7 +12,7 @@
   </thead>
   <tbody>
   <tr>
-    <ng-container *ngIf="(datasourceProperties$ | async) as datasourceProperties; else loadingDatasourceProperties">
+    <ng-container *ngIf="datasourceProperties; else loadingDatasourceProperties">
       <td>{{datasourceProperties.jdbcUrl}}</td>
       <td>{{datasourceProperties.username}}</td>
       <td>{{datasourceProperties.flywayPath}}</td>
