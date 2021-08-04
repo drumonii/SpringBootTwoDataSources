@@ -36,7 +36,7 @@ describe('FlywayDatatableComponent', () => {
     const flywayMigrationsTable = getFlywayMigrationsTable();
 
     const flywayMigrationsTableLoadingDatas = flywayMigrationsTable.queryAll(By.css('td'));
-    expect(flywayMigrationsTableLoadingDatas.length).toBe(3, 'number of table data');
+    expect(flywayMigrationsTableLoadingDatas.length).withContext('number of table data').toBe(3);
     for (const flywayMigrationsTableLoadingData of flywayMigrationsTableLoadingDatas) {
       expect(flywayMigrationsTableLoadingData.nativeElement.textContent.trim()).toBe('...');
     }
@@ -49,7 +49,7 @@ describe('FlywayDatatableComponent', () => {
     const flywayMigrationsTable = getFlywayMigrationsTable();
 
     const flywayMigrationsTableDatas = flywayMigrationsTable.queryAll(By.css('td'));
-    expect(flywayMigrationsTableDatas.length).toBe(3, 'number of table data');
+    expect(flywayMigrationsTableDatas.length).withContext('number of table data').toBe(3);
 
     let i = 0;
     expect(flywayMigrationsTableDatas[i++].nativeElement.textContent.trim()).toBe(migrations[0].script);
@@ -59,10 +59,10 @@ describe('FlywayDatatableComponent', () => {
 
   function getFlywayMigrationsTable(): DebugElement {
     const flywayMigrationsTable = fixture.debugElement.query(By.css('#flyway-migrations-table'));
-    expect(flywayMigrationsTable).toBeTruthy('flyway migrations table');
+    expect(flywayMigrationsTable).withContext('flyway migrations table').toBeTruthy();
 
     const flywayMigrationsTableHeaders = flywayMigrationsTable.queryAll(By.css('th'));
-    expect(flywayMigrationsTableHeaders.length).toBe(3, 'number of headers');
+    expect(flywayMigrationsTableHeaders.length).withContext('number of headers').toBe(3);
 
     let i = 0;
     expect(flywayMigrationsTableHeaders[i++].nativeElement.textContent.trim()).toBe('Script');

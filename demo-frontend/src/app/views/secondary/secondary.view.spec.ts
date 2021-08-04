@@ -55,18 +55,19 @@ describe('SecondaryView', () => {
     const secondaryOverview = fixture.debugElement.query(By.directive(PageHeaderComponent));
     const secondaryOverviewHeader = secondaryOverview.injector.get(PageHeaderComponent);
     expect(secondaryOverviewHeader.pageHeader)
-      .toBe('Secondary DataSource', 'secondary overview text');
+      .withContext('secondary overview text')
+      .toBe('Secondary DataSource');
   });
 
   it('should get the datasource properties', inject([SecondaryService], (secondaryService: SecondaryService) => {
-    expect(fixture.debugElement.query(By.directive(DataSourcePropertiesComponent))).toBeTruthy('datasource props component');
-    expect(fixture.debugElement.query(By.directive(FlywayDatatableComponent))).toBeTruthy('flyway migrations component');
+    expect(fixture.debugElement.query(By.directive(DataSourcePropertiesComponent))).withContext('datasource props component').toBeTruthy();
+    expect(fixture.debugElement.query(By.directive(FlywayDatatableComponent))).withContext('flyway migrations component').toBeTruthy();
     expect(secondaryService.getSecondaryDataSourceEnv).toHaveBeenCalled();
     expect(secondaryService.getSecondaryFlyway).toHaveBeenCalled();
   }));
 
   it('should get the paginated secondary', () => {
-    expect(fixture.debugElement.query(By.directive(DatatableComponent))).toBeTruthy('datatable component');
+    expect(fixture.debugElement.query(By.directive(DatatableComponent))).withContext('datatable component').toBeTruthy();
   });
 
   describe('save new secondary', () => {

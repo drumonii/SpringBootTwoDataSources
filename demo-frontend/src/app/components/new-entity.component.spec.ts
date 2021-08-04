@@ -42,7 +42,7 @@ describe('NewEntityComponent', () => {
 
       fixture.detectChanges();
 
-      expect(fixture.debugElement.query(By.css('#invalid-name-feedback'))).toBeTruthy('invalid name feedback');
+      expect(fixture.debugElement.query(By.css('#invalid-name-feedback'))).withContext('invalid name feedback').toBeTruthy();
       expect(component.newEntityForm.valid).toBe(false);
     });
 

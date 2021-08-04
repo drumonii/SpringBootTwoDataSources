@@ -36,7 +36,7 @@ describe('DataSourcePropertiesComponent', () => {
     const configPropsTable = getConfigPropsTable();
 
     const configPropTableLoadingDatas = configPropsTable.queryAll(By.css('td'));
-    expect(configPropTableLoadingDatas.length).toBe(5, 'number of table data');
+    expect(configPropTableLoadingDatas.length).withContext('number of table data').toBe(5);
     for (const configPropTableLoadingData of configPropTableLoadingDatas) {
       expect(configPropTableLoadingData.nativeElement.textContent.trim()).toBe('...');
     }
@@ -49,7 +49,7 @@ describe('DataSourcePropertiesComponent', () => {
     const configPropsTable = getConfigPropsTable();
 
     const configPropTableDatas = configPropsTable.queryAll(By.css('td'));
-    expect(configPropTableDatas.length).toBe(5, 'number of table data');
+    expect(configPropTableDatas.length).withContext('number of table data').toBe(5);
 
     let i = 0;
     expect(configPropTableDatas[i++].nativeElement.textContent.trim()).toBe(datasourceProperties.jdbcUrl);
@@ -61,10 +61,10 @@ describe('DataSourcePropertiesComponent', () => {
 
   function getConfigPropsTable(): DebugElement {
     const configPropsTable = fixture.debugElement.query(By.css('#config-props-table'));
-    expect(configPropsTable).toBeTruthy('config props table');
+    expect(configPropsTable).withContext('config props table').toBeTruthy();
 
     const configPropsTableHeaders = configPropsTable.queryAll(By.css('th'));
-    expect(configPropsTableHeaders.length).toBe(5, 'number of headers');
+    expect(configPropsTableHeaders.length).withContext('number of headers').toBe(5);
 
     let i = 0;
     expect(configPropsTableHeaders[i++].nativeElement.textContent.trim()).toBe('URL');

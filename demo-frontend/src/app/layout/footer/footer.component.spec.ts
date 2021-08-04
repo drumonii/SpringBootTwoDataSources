@@ -22,7 +22,7 @@ describe('FooterComponent', () => {
 
   it('should show the GitHub link', () => {
     const gitHubLink = fixture.debugElement.query(By.css('#github-link'));
-    expect(gitHubLink.nativeElement.textContent.trim()).toBe('GitHub', 'GitHub link text');
-    expect(gitHubLink.nativeElement.href).toBe('https://github.com/drumonii/SpringBootTwoDataSources', 'GitHub href');
+    expect(gitHubLink.nativeElement.textContent.trim()).withContext('GitHub link text').toBe('GitHub');
+    expect(gitHubLink.nativeElement.href).withContext('GitHub href').toBe('https://github.com/drumonii/SpringBootTwoDataSources');
   });
 });

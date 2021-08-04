@@ -36,14 +36,16 @@ describe('HomeComponent', () => {
     const projectOverview = fixture.debugElement.query(By.directive(PageHeaderComponent));
     const projectOverviewHeader = projectOverview.injector.get(PageHeaderComponent);
     expect(projectOverviewHeader.pageHeader)
-      .toBe('Spring Boot with two DataSources Demonstration Project', 'project overview text');
+      .withContext('project overview text')
+      .toBe('Spring Boot with two DataSources Demonstration Project');
 
     const projectDetails = fixture.debugElement.query(By.css('#project-details'));
     expect(projectDetails.nativeElement.textContent.trim())
-      .toBe(`This project demonstrates how to use two DataSources with Spring Boot ${springBootVersion}`, 'project overview details');
+      .withContext('project overview details')
+      .toBe(`This project demonstrates how to use two DataSources with Spring Boot ${springBootVersion}`);
 
     const projectFeaturesList = fixture.debugElement.query(By.css('#project-features-list'));
-    expect(projectFeaturesList).toBeTruthy('project features list');
-    expect(projectFeaturesList.children.length).toBe(4, 'number of project features list items');
+    expect(projectFeaturesList).withContext('project features list').toBeTruthy();
+    expect(projectFeaturesList.children.length).withContext('number of project features list items').toBe(4);
   });
 });
