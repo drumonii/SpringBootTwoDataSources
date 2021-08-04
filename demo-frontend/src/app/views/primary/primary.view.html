@@ -3,7 +3,7 @@
 <div class="container">
   <app-data-source-properties [datasourceProperties$]="primaryDatasourceProperties$"></app-data-source-properties>
 
-  <app-flyway-datatable [migrations$]="primaryFlyway$"></app-flyway-datatable>
+  <app-flyway-datatable [migrations]="primaryFlyway$ | async"></app-flyway-datatable>
 
   <app-new-entity [errors]="errors" (newEntityEvent)="submitNewPrimary($event)"></app-new-entity>
 

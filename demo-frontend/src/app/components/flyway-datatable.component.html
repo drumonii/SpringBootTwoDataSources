@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody>
-  <ng-container *ngIf="(migrations$ | async) as migrations; else loadingMigrations">
+  <ng-container *ngIf="migrations; else loadingMigrations">
     <tr *ngFor="let migration of migrations">
       <td>{{migration.script}}</td>
       <td>{{migration.state}}</td>

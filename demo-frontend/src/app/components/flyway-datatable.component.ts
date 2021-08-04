@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs';
-
 import { FlywayMigration } from '@models/flyway-response';
 
 @Component({
@@ -13,7 +11,7 @@ import { FlywayMigration } from '@models/flyway-response';
 export class FlywayDatatableComponent implements OnInit {
 
   @Input()
-  migrations$: Observable<FlywayMigration[]>;
+  migrations: FlywayMigration[];
 
   constructor() { }
 
