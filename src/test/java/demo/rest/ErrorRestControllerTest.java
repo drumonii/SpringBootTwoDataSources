@@ -28,7 +28,7 @@ class ErrorRestControllerTest {
 
         ResponseEntity<String> responseEntity = new TestRestTemplate().exchange(requestEntity, String.class);
 
-        assertThat(responseEntity.getHeaders().getContentType()).isEqualTo(MediaType.valueOf("application/json;charset=UTF-8"));
+        assertThat(responseEntity.getHeaders().getContentType()).isEqualTo(MediaType.APPLICATION_JSON);
         assertThat(responseEntity.getBody()).satisfies(new ErrorJson());
     }
 

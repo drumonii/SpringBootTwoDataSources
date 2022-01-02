@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ForwardIndexHtmlController {
 
-    @GetMapping(value = "/**/{path:[^\\.]*}")
+    @GetMapping("{path:[^\\.]*}")
     public String forwardToIndexHtml() {
         return "forward:index.html";
     }
