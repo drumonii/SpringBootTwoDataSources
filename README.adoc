@@ -1,6 +1,6 @@
 = Spring Boot and Two DataSources
 
-This project demonstrates how to use two `DataSource` s with Spring Boot 2.4.
+This project demonstrates how to use two `DataSource` s with Spring Boot 2.6.
 
 It utilizes: 
 

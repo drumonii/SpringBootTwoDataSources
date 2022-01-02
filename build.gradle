@@ -7,14 +7,14 @@ apply plugin: 'io.spring.dependency-management'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-version = '3.3.0-SNAPSHOT'
+version = '3.4.0-SNAPSHOT'
 
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.5.4'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.6.2'
     }
 }
 
